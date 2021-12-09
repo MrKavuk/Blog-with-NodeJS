@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Log In</title>
+</head>
+
+<body>
+
+    <div id="log-in-container">
+        <h3 id="heading">Log In</h3>
+        <form action="https://localhost:8080" method="post">
+            <div class="input-div">
+                <input type="text" class="form-element" name="username" placeholder="Kullanıcı Adı veya Eposta Giriniz"
+                    required>
+            </div>
+            <div class="input-div">
+                <input type="password" id="password" class="form-element" name="password" placeholder="Şifre" required>
+            </div>
+            <div>
+                <input type="submit" id="btn" value="Sign In">
+            </div>
+            <div class="forgetPassword input-div">
+                <a href="" class="blue">Forgot Password</a>
+            </div>
+            <div id="bottom">
+                <div class=" input-div">
+                    <a href="" class="aqua">Sign Up Now</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="listen.js"></script>
+</body>
+
+</html>

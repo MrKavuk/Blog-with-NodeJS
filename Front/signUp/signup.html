@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Log In</title>
+</head>
+
+<body>
+
+    <div id="log-in-container">
+        <h3 id="heading">Sign Up</h3>
+        <form  action="adres" method="post" id="form" onsubmit="return validateMyForm()">
+            <div class="input-div">
+                <input type="text" class="form-element" name="name" placeholder="İsim girin"
+                    required>
+            </div>
+            <div class="input-div">
+                <input type="text" class="form-element" name="surname" placeholder="Soyisim girin"
+                    required>
+            </div>
+            <div class="input-div">
+                <input type="text" class="form-element" name="username" placeholder="Kullanıcı Adı"
+                    required>
+            </div>
+            <div class="input-div">
+                <input type="email" class="form-element" name="email" placeholder="Email giriniz"
+                    required>
+            </div>
+            <div class="input-div">
+                <input type="password" id="password" class="form-element" name="password" placeholder="Şifre" required>
+            </div>
+            <div class="input-div">
+                <input type="password" id="passwordRetry" class="form-element" name="passwordRetry" placeholder="Şifreyi tekrar girin" required>
+            </div>
+            
+            <div>
+                <input type="submit" id="btn" value="Sign Up">
+            </div>
+            
+        </form>
+    </div>
+    <script src="listen.js"></script>
+</body>
+
+</html>
