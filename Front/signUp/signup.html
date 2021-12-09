@@ -18,6 +18,7 @@
     <div id="log-in-container">
         <h3 id="heading">Sign Up</h3>
         <form  action="adres" method="post" id="form" onsubmit="return validateMyForm()">
+            <p id="message"></p>
             <div class="input-div">
                 <input type="text" class="form-element" name="name" placeholder="İsim girin"
                     required>
@@ -36,9 +37,11 @@
             </div>
             <div class="input-div">
                 <input type="password" id="password" class="form-element" name="password" placeholder="Şifre" required>
+                <div class="warning"><img src="img/unlem.PNG" alt=""></div>
             </div>
             <div class="input-div">
                 <input type="password" id="passwordRetry" class="form-element" name="passwordRetry" placeholder="Şifreyi tekrar girin" required>
+                <div class="warning"><img src="img/unlem.PNG" alt=""></div>
             </div>
             
             <div>
