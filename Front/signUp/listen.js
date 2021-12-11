@@ -13,6 +13,8 @@ function validateMyForm(){
       document.getElementById("message").innerHTML = "! Şifreler Uyuşmuyor";
       password.style.border= "2px solid red"; 
       passwordRetry.style.border = "2px solid red";
+      warning[0].style.display = "inline-block"
+      warning[1].style.display = "inline-block"
       return false;
    }
    else{
