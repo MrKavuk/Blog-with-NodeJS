@@ -1,0 +1,102 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #FAFAFA;
+}
+
+.center{
+    
+    display: block;
+    width: 400px;
+    margin: 100px auto;
+    background-color:#FFFFFF ;    
+    -webkit-box-shadow: 2px 4px 4px #adadad ;
+    -moz-box-shadow: 2px 4px 4px #adadad;
+    box-shadow: 2px 4px 4px #adadad;
+}
+
+.content{
+
+    margin-top: 100px;
+   
+   
+}
+
+.resetInput{
+
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.resetInput input{
+    width: 100%;
+    line-height: 30px;
+    font-size: 20px;
+    padding: 5px;
+    border:1px solid #DBDBDB;
+    border-radius: 4px;
+
+}
+
+#send{
+
+    height: 30px;
+    width: 100%;
+    color: white;
+    background-color: #0095F6;
+    outline: 0;
+    bordeR: none;
+    border-radius: 4px;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+#send:hover{
+
+    cursor: pointer;
+}
+
+#headerReset{
+
+    font-size: 40px;
+    text-align:center;
+    padding-top:20px;
+    font-family:'Lobster', cursive;
+    
+}
+
+.loginReturn{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    cursor: pointer;
+}
+
+.loginBack{
+    color:blue;
+}
+
+form{
+    padding: 20px 20px;
+    font-family: 'Lobster', cursive;
+}
+
+#resetForm{
+    padding: 7px 12px;
+    width: 100%;
+    outline: 0;
+    border-radius: 4px;
+}
