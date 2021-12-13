@@ -1,5 +1,5 @@
 const express  = require('express');
-const {controller} = require('./controller.js')
+const {controller} = require('./controllers/controller.js')
 const app = express();
 
 app.set('view engine','ejs'); // html dosyalarını ejs olarak değiştiriyoruz ve içinde javascript yazabiliyoruz
