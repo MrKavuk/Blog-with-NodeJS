@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
-const {schema} = mongoose;
+const {Schema} = mongoose;
 
 
-const webUserSchema = new schema({
+const webUserSchema = new Schema({
 
     name: {type : String, required: true},
     surname: {type : String, required: true},
-    eMail: {type : String, required: true},
-    userName: {type : String, required: true},
-    password1: {type : String, required: true},
+    email: {type : String, required: true},
+    username: {type : String, required: true},
+    password: {type : String, required: true},
     
 })
 

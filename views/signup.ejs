@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-    <title> <%=title%> </title>
+    <title> <%=title%></title>
     <link rel="stylesheet" href="signUp.css">
     <link rel="stylesheet" href="homepage.css">
     
@@ -29,12 +29,13 @@
     </nav>
 
     <div id="log-in-container">
+        
         <h3 id="heading">Sign Up</h3>
-        <form  action="" method="post" id="form" onsubmit="return validateMyForm()">
+        <form  action="/setSignUp" method="post" id="form" onsubmit="return validateMyForm()">
             <p id="message"></p>
             <div class="input-div">
                 <input type="text" class="form-element" name="name" placeholder="İsim girin"
-                    required>
+                    >
             </div>
             <div class="input-div">
                 <input type="text" class="form-element" name="surname" placeholder="Soyisim girin"
