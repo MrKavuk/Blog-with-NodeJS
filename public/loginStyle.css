@@ -1,8 +1,4 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+
 body{
     background-color: #FAFAFA;
 }
@@ -40,7 +36,6 @@ form {
     width: 100%;
     margin-bottom: 20px;
     text-align: center;
-    position: relative;
 }
 .input-div input{
     width: 100%;
@@ -88,16 +83,3 @@ form {
     color: rgb(55, 153, 202);
 }
 
-#message{
-    color: red;
-    font-style:normal !important;
-    font-size: 15px;
-    margin: 5px 0 5px 0;
-}
-.warning{
-    position: absolute;
-    top:6px;
-    right:2px;
-    display: none;
-    
-}

@@ -8,13 +8,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title> <%=title%> </title> 
+    <link rel="stylesheet" href="loginStyle.css">
+    <link rel="stylesheet" href="homepage.css">
 
-    <title>Log In</title>
 </head>
 
 <body>
     
+    <nav id="nav-up">
+        <div class="center">
+            <ul>
+                <li><a href="/"> Home Page </a></li>
+                <li><a href="/signUp"> Sign Up </a></li>
+                <li><a href="/login"> Login </a></li>
+                
+            </ul>
+        </div>
+        
+    </nav>
+
     <div id="log-in-container">
         <h3 id="heading">Log In</h3>
         <form action="https://localhost:8080" method="post">
@@ -39,7 +52,7 @@
             </div>
         </form>
     </div>
-    <script src="listen.js"></script>
+    <script src="login.js"></script>
 </body>
 
 </html>
