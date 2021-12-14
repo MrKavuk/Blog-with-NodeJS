@@ -1,6 +1,7 @@
 const {webUserModel} = require('../models/webUser')
 const {connectionHelper} = require('../dbconnect/connectionHelper')
-
+const CryptoJS = require("crypto-js");
+const {shaKey} = require('../env/saveKeySha')
 const controller ={
 
     getHomepage : (req,res)=>{
@@ -22,13 +23,15 @@ const controller ={
 
         connectionHelper.connect()
         webUserModel.findOne({email : req.body.email},(err,doc)=>{
-            if(err){
+            if(!doc){
+                encrypePassword = CryptoJS.SHA256(req.body.password,shaKey)
+
                 webUser = new webUserModel({
                     name : req.body.name,
                     surname : req.body.surname,
                     email : req.body.email,
                     username : req.body.username,
-                    password : req.body.password     // Şifreleme ile kaydetcez
+                    password : encrypePassword   
                 })
                 webUser.save((err,doc)=>{
                     if(!err && doc != null){
@@ -47,6 +50,30 @@ const controller ={
             }
         })
         
+    },
+    login : (req,res)=>{
+
+        password = req.body.password
+        console.log('email : '+ email)
+        console.log('password : '+password)
+        
+        webUserModel.findOne({email : req.body.email},(err,doc)=>{
+            console.log(doc)
+            if(doc!=null && !err){
+              var bytes = CryptoJS.AES.decrypt(doc.password,shaKey)
+              var decryptePassword = bytes.toString(CryptoJS.enc.Utf8)
+               if(password === decryptePassword){
+                   res.status(201).json({msg : "Giriş Başarılı"})
+               }
+               else{
+                   res.status(400).json({msg : " Şifre hatalı "})
+               }
+            }
+            else{
+                res.status(400).json({msg :"Eposta hatalı"})
+            }
+
+        })
     }
 }
 module.exports ={

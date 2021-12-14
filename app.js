@@ -62,12 +62,27 @@ app.post('/setSignUp',
     , (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            console.log("error if icinde");
+            
             return res.status(400).json({ errors: errors.array() });
         }
         controller.setSignUp(req, res)
 
     })
+
+app.post('/login',
+body('email').notEmpty().withMessage('Email boş geçilemez'),
+body('password').notEmpty().withMessage('Password boş geçilemez'),
+
+(req,res)=>{
+
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors: errors})
+    }
+
+    controller.login(req,res)
+})   
+
 
 
 
