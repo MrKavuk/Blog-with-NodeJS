@@ -1,4 +1,4 @@
-const connectString = "mongodb+srv://mehmet96:_test123@cluster0.kzopd.mongodb.net/Users"
+const connectString = "mongodb+srv://kullaniciAdi:sifre@cluster0.kzopd.mongodb.net/Users"
 
 
 

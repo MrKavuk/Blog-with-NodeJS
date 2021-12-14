@@ -2,7 +2,7 @@ const express = require('express');
 const { controller } = require('./controllers/controller.js')
 const bodyParser = require('body-parser')
 const app = express();
-
+const {connectionHelper} = require('./dbconnect/connectionHelper')
 const { body, validationResult } = require('express-validator');
 app.set('view engine', 'ejs'); // html dosyalarını ejs olarak değiştiriyoruz ve içinde javascript yazabiliyoruz
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,6 +17,8 @@ app.use(bodyParser.json());
 //webUserController require edilip get-post metodları arasında çağırılacak       (Eksik)
 
 const port = 8080;
+
+connectionHelper.connect()
 
 app.listen(port, () => {
     console.log("Server started working")
@@ -62,7 +64,7 @@ app.post('/setSignUp',
     , (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            
+
             return res.status(400).json({ errors: errors.array() });
         }
         controller.setSignUp(req, res)
@@ -70,18 +72,18 @@ app.post('/setSignUp',
     })
 
 app.post('/login',
-body('email').notEmpty().withMessage('Email boş geçilemez'),
-body('password').notEmpty().withMessage('Password boş geçilemez'),
+    body('email').notEmpty().withMessage('Email boş geçilemez'),
+    body('password').notEmpty().withMessage('Password boş geçilemez'),
 
-(req,res)=>{
+    (req, res) => {
 
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors})
-    }
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors })
+        }
 
-    controller.login(req,res)
-})   
+        controller.login(req, res)
+    })
 
 
 

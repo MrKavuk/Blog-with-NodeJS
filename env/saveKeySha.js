@@ -1,5 +1,5 @@
-shaKey = "test123"
+userLoginKey = "test123"
 
 module.exports ={
-    shaKey
+    userLoginKey
 }
