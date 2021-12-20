@@ -9,12 +9,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
-/*Not : 1-) Eksik kısımlar modüller oluşturulduktan sonra eklenecek !!
-        2-) Email kontrolü yapılmadı, onu veritabanına kaydederken kontrol et */
-
-
-//veritabanı başlatma require edilip veritabanı başlatılacak                     (Eksik)
-//webUserController require edilip get-post metodları arasında çağırılacak       (Eksik)
 
 const port = 8080;
 
