@@ -2,28 +2,15 @@
 <html lang="tr">
 
 <head>
-    <meta charset="UTF-8">
-    <title>
-        <%=title%>
-    </title>
-    <link rel="stylesheet" href="homepage.css">
-    <link rel="stylesheet" href="">
     
-
+    <%-include('./inc/headHome')%>
+    <link rel="stylesheet" href="nav.css">
+    
+ 
 </head>
 
 <body>
-    <nav id="nav-up">
-        <div class="center">
-            <ul>
-                <li><a href="/"> Home Page </a></li>
-                <li><a href="/signUp"> Sign Up </a></li>
-                <li><a href="/login"> Login </a></li>
-
-            </ul>
-        </div>
-
-    </nav>
+    <%-include('./inc/nav')%>
 
 </body>
 
