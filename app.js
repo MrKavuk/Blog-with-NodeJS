@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const app = express();
 const {connectionHelper} = require('./dbconnect/connectionHelper')
 const { body, validationResult } = require('express-validator');
+const { Mongoose } = require('mongoose');
 app.set('view engine', 'ejs'); // html dosyalarını ejs olarak değiştiriyoruz ve içinde javascript yazabiliyoruz
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -21,12 +22,16 @@ app.listen(port, () => {
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-
+    
     controller.getHomepage(req, res)
 })
 
 app.get('/home', (req, res) => {
     res.redirect('/')               //yönlendirme (sanki / isteği gelmiş gibi ona yönlendiriyor)
+})
+
+app.get('/add',(req,res)=>{
+    
 })
 
 //postman body içinde mutlaka email ve şifre gönderilecek

@@ -2,15 +2,68 @@
 <html lang="tr">
 
 <head>
-    
+
     <%-include('./inc/headHome')%>
     <link rel="stylesheet" href="nav.css">
     
- 
+    <style>
+        .container{
+            padding-bottom: 20px;
+        }
+        .container .title{
+            text-align: center;
+        }
+        .container ul{
+            list-style: none;
+        }
+        .container li{
+            margin-bottom: 10px;
+        }
+        li a{
+            text-decoration: none;
+            color: black;
+        }
+        .card{
+            padding :20px 0 20px 0;
+            font-size: 20px;
+            width: 100%;
+            background-color: burlywood;
+            text-align: center;
+        }
+        .title{
+            margin: 20px 0 20px 0;
+        }
+    </style>
 </head>
 
 <body>
     <%-include('./inc/nav')%>
+
+    <h2 style="position: absolute; top:8px;left :12px ; color: white;">Node Blog </h2>
+
+    <div class="center container">
+        <h1 class="title">Blog Yazıları</h1>
+        <ul>
+            <% blogs.forEach( (blog) => { %>
+                <li>
+                    <a href="#">
+                        <div class="card">
+                            
+                            <h3> <%=blog.title %> </h3>
+                            <p> <%=blog.short %> </p>
+                            
+                        </div>
+                    </a>
+                </li>
+                
+             <% }) %>   
+            
+            
+        </ul>
+        
+    </div>
+
+
 
 </body>
 

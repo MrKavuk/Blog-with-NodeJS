@@ -1,10 +1,18 @@
 const { webUserModel } = require('../models/webUser')
+const {blogModel} =  require('../models/blogs')
 const CryptoJS = require("crypto-js");
 const { userLoginKey } = require('../env/saveKeySha')
 const controller = {
 
     getHomepage: (req, res) => {
-        res.render('homePage', { title: "Welcome Home Page" })
+        blogModel.find()
+            .then((result)=>{
+                res.render('homePage', { title: "Welcome Home Page",blogs : result })
+                })
+            .catch((err)=>{
+                console.log(err)
+            })
+        
     },
     getLogin: (req, res) => {
         res.render('login', { title: "Login" })
@@ -64,7 +72,7 @@ const controller = {
                     res.status(200).json({msg : "Giriş Başarılı"})
                 }
                 else{
-                    console.log(decryptedData)
+                    
                     res.status(400).json({msg : "Şifre Hatalı"})
                 }
             }
@@ -73,7 +81,21 @@ const controller = {
             }
 
         })
+    },
+    addBlog : (req,res)=>{
+        const blog = new blogModel({
+            title : req.body.title,
+            short : req.body.short ,
+            long :  req.body.long
+        })
+        blog.save().then((result)=>{
+            res.send(result)
+        })
+        .catch((err)=>{
+            res.status(400).send("Blog Keydedilemedi")
+        })
     }
+
 }
 module.exports = {
     controller

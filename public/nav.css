@@ -5,17 +5,19 @@
 }
 #nav-up{
     line-height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
     background-color: black;
-}
-#nav-up ul li{
-    list-style-type: none;
-    float: left;
-    
     
 }
-#nav-up ul li:last-child{
-    float: right;
+#nav-up ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
 }
+
+
 #nav-up li:hover{
     background-color: red;
 }

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 
-const webUserSchema = new Schema({
+const authorSchema = new Schema({
 
     name: {type : String, required: true},
     surname: {type : String, required: true},
@@ -10,11 +10,12 @@ const webUserSchema = new Schema({
     username: {type : String, required: true},
     password: {type : String, required: true}
     
+    
 })
 
-const webUserModel = mongoose.model("WebUser", webUserSchema)
+const authorModel = mongoose.model("Author", authorSchema)
 
 module.exports={
     
-    webUserModel
+    authorModel
 }
