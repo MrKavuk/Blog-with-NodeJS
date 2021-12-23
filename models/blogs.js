@@ -14,7 +14,12 @@ const blogSchema = new Schema({
         type:String,
         require:true
     },
-    author:[{type : Schema.Types.ObjectId , ref :'Author'}]
+    author:[{type : Schema.Types.ObjectId , ref :'Author'}],
+    img:
+    {
+        data: Buffer,
+        contentType: String
+    }
 
 },{timestamps: true})
 

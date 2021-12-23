@@ -30,9 +30,6 @@ app.get('/home', (req, res) => {
     res.redirect('/')               //yönlendirme (sanki / isteği gelmiş gibi ona yönlendiriyor)
 })
 
-app.get('/add',(req,res)=>{
-    
-})
 
 //postman body içinde mutlaka email ve şifre gönderilecek
 app.get("/login", (req, res) => {
@@ -53,6 +50,9 @@ app.get('/resetPassword', (req, res) => {
     controller.getResetPassword(req, res)
 
 })
+app.get('/getBlog/:id',(req,res)=>{
+    controller.getBlog(req,res)
+})
 
 app.post('/setSignUp',
     body('name').notEmpty().withMessage("Name Boş Bırakılamaz !!!"),
@@ -69,6 +69,14 @@ app.post('/setSignUp',
         controller.setSignUp(req, res)
 
     })
+
+app.post('/addBlog',(req,res)=>{
+    controller.addBlog(req,res)
+})
+app.get('/getAddBlog',(req,res)=>{
+
+    controller.getAddBlog(req,res)
+})
 
 app.post('/login',
     body('email').notEmpty().withMessage('Email boş geçilemez'),

@@ -5,35 +5,10 @@
 
     <%-include('./inc/headHome')%>
     <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="homePage.css">
+    <link rel="stylesheet" href="card.css">
+
     
-    <style>
-        .container{
-            padding-bottom: 20px;
-        }
-        .container .title{
-            text-align: center;
-        }
-        .container ul{
-            list-style: none;
-        }
-        .container li{
-            margin-bottom: 10px;
-        }
-        li a{
-            text-decoration: none;
-            color: black;
-        }
-        .card{
-            padding :20px 0 20px 0;
-            font-size: 20px;
-            width: 100%;
-            background-color: burlywood;
-            text-align: center;
-        }
-        .title{
-            margin: 20px 0 20px 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -42,22 +17,28 @@
     <h2 style="position: absolute; top:8px;left :12px ; color: white;">Node Blog </h2>
 
     <div class="center container">
-        <h1 class="title">Blog Yazıları</h1>
-        <ul>
-            <% blogs.forEach( (blog) => { %>
-                <li>
-                    <a href="#">
-                        <div class="card">
-                            
-                            <h3> <%=blog.title %> </h3>
-                            <p> <%=blog.short %> </p>
-                            
-                        </div>
-                    </a>
-                </li>
-                
-             <% }) %>   
             
+             <ul>
+                <% blogs.forEach( (blog) => { %>
+                    <li>   
+                        <div class="post radius-20px">
+                            <a href="/getBlog/<%=blog._id%>"><img src="" alt=""></a>
+                            <div class="post-body">
+                                <h3 class="post-header"><a href="/getBlog/<%=blog._id%>"><%=blog.title %></a></h3>
+                                <p><%=blog.short %></p>
+                                <p class="date"><%=blog.createdAt%></p>
+                                <ul class="etiket">
+                                    <li><a href="">Html5</a></li>
+                                    <li><a href="">Css3</a></li>
+                                    <li><a href="">Boostrap</a></li>
+                                    <li><a href="">JavaScript</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </li>
+                
+                <% }) %> 
             
         </ul>
         
