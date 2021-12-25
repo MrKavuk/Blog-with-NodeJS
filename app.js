@@ -5,6 +5,11 @@ const app = express();
 const {connectionHelper} = require('./dbconnect/connectionHelper')
 const { body, validationResult } = require('express-validator');
 const { Mongoose } = require('mongoose');
+const {router} = require('./routes/homeRoutes')
+
+
+
+
 app.set('view engine', 'ejs'); // html dosyalarını ejs olarak değiştiriyoruz ve içinde javascript yazabiliyoruz
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -20,15 +25,16 @@ app.listen(port, () => {
 })
 
 app.use(express.static('public'))
+app.use('/home',router)
 
-app.get('/', (req, res) => {
+// app.get('/', (req, res) => {
     
-    controller.getHomepage(req, res)
-})
+//     controller.getHomepage(req, res)
+// })
 
-app.get('/home', (req, res) => {
-    res.redirect('/')               //yönlendirme (sanki / isteği gelmiş gibi ona yönlendiriyor)
-})
+// app.get('/home', (req, res) => {
+//     res.redirect('/')               //yönlendirme (sanki / isteği gelmiş gibi ona yönlendiriyor)
+// })
 
 
 //postman body içinde mutlaka email ve şifre gönderilecek

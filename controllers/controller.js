@@ -4,16 +4,7 @@ const CryptoJS = require("crypto-js");
 const { userLoginKey } = require('../env/saveKeySha')
 const controller = {
 
-    getHomepage: (req, res) => {
-        blogModel.find()
-            .then((result)=>{
-                res.render('homePage', { title: "Welcome Home Page",blogs : result })
-                })
-            .catch((err)=>{
-                console.log(err)
-            })
-        
-    },
+
     getLogin: (req, res) => {
         res.render('login', { title: "Login" })
     },
@@ -87,10 +78,10 @@ const controller = {
             title : req.body.title,
             long :  req.body.long,
             short : req.body.long.substring(0,(req.body.long.length/10))+"...",
-            img: {
-                data: fs.readFileSync(path.join(__dirname + '/img/3.jpg')),
-                contentType: 'image/png'
-            }
+            // img: {
+            //     data: fs.readFileSync(path.join(__dirname + '/img/3.jpg')),
+            //     contentType: 'image/png'
+            // }
         })
         blog.save().then((result)=>{
             res.send(result)
