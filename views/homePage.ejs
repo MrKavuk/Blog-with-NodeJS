@@ -4,9 +4,9 @@
 <head>
 
     <%-include('./inc/headHome')%>
-    <link rel="stylesheet" href="style/nav.css">
-    <link rel="stylesheet" href="style/homePage.css">
-    <link rel="stylesheet" href="style/card.css">
+    <link rel="stylesheet" href="/style/nav.css">
+    <link rel="stylesheet" href="/style/homePage.css">
+    <link rel="stylesheet" href="/style/card.css">
 
     
 </head>
@@ -22,9 +22,9 @@
                 <% blogs.forEach( (blog) => { %>
                     <li>   
                         <div class="post radius-20px">
-                            <a href="/getBlog/<%=blog._id%>"><img src="" alt=""></a>
+                            <a href="/blog/get/<%=blog._id%>"><img src="" alt=""></a>
                             <div class="post-body">
-                                <h3 class="post-header"><a href="/getBlog/<%=blog._id%>"><%=blog.title %></a></h3>
+                                <h3 class="post-header"><a href="/blog/get/<%=blog._id%>"><%=blog.title %></a></h3>
                                 <p><%=blog.short %></p>
                                 <p class="date"><%=blog.createdAt%></p>
                                 <ul class="etiket">

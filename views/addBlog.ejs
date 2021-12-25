@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <%-include('./inc/headHome')%>
-    <link rel="stylesheet" href="style/addBlogForm.css">
+    <link rel="stylesheet" href="/style/addBlogForm.css">
     
 </head>
 <body>
     <div class="center">
-        <form action="/addBlog" method="post">
+        <form action="/blog/add" method="post">
             
             <div class="input-div">
                 <input type="text" class="form-element" name="title" placeholder="Blog başlığı girin" required  >
