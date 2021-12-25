@@ -2,7 +2,6 @@ const { authorModel } = require('../models/author')
 const CryptoJS = require("crypto-js");
 const { userLoginKey } = require('../env/saveKeySha')
 
-
 const controller ={
     getLogin: (req, res) => {
         res.render('login', { title: "Login" })
@@ -15,7 +14,7 @@ const controller ={
     },
 
     postSignUp: (req, res) => {
-        
+        console.log(req.body)
         authorModel.findOne({ email: req.body.email }, (err, doc) => {
             if (!doc) {
                 var encryptPassword = CryptoJS.AES.encrypt(req.body.password, userLoginKey).toString();

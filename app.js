@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
 const {connectionHelper} = require('./dbconnect/connectionHelper')
+const bodyParser = require('body-parser')
+const { body, validationResult } = require('express-validator');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 var path = require('path')
 
