@@ -6,8 +6,23 @@ const { body, validationResult } = require('express-validator');
 const cookieParser = require("cookie-parser")
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+var uuid = require('uuid');
 var path = require('path')
+
+const multer = require('multer')
+const fileStorageEngine = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/img')
+    },
+    filename: function (req, file, cb) {
+        console.log(file.originalname);
+      cb(null, uuid.v1() + '-' + file.originalname)
+    }
+  })
+  
+  const upload = multer({ storage : fileStorageEngine })
+
+
 
 // routers require
 const {routerHome} = require('./routes/homeRoutes')
@@ -40,7 +55,7 @@ app.get("/", (req,res)=>{
 
 app.use('/home',routerHome)   // router ile yolunu söyledim.
 app.use('/author',routerAuth)   // author kaldırdım nedeni direk olarak login olarak ulaşmamız için
-app.use('/blog',requiredAuth,routerBlog)  // blog kaldırdım direkt  getpage felan ulaşmamız için ama olmadı.
+app.use('/blog',requiredAuth,upload.single('webuserimage'),routerBlog)  // blog kaldırdım direkt  getpage felan ulaşmamız için ama olmadı.
 app.use((req, res) => {
     res.status(400).render('404')
 })

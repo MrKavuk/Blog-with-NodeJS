@@ -22,7 +22,7 @@
                 <% blogs.forEach( (blog) => { %>
                     <li>   
                         <div class="post radius-20px">
-                            <a href="/blog/get/<%=blog._id%>"><img src="" alt=""></a>
+                            <a href="/blog/get/<%=blog._id%>"><img src="/img/<%=blog.imgName%>" alt=""></a>
                             <div class="post-body">
                                 <h3 class="post-header"><a href="/blog/get/<%=blog._id%>"><%=blog.title %></a></h3>
                                 <p><%=blog.short %></p>

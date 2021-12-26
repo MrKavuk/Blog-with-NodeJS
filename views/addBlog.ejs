@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="center">
-        <form action="/blog/add" method="post">
+        <form action="/blog/add" enctype="multipart/form-data" method="post">
             
             <div class="input-div">
                 <input type="text" class="form-element" name="title" placeholder="Blog başlığı girin" required  >
@@ -16,7 +16,9 @@
             <div class="input-div">
                 <textarea id="w3review" name="long" rows="25" ></textarea>
             </div>
-            
+            <div class="input-div">
+                <input type="file" name="webuserimage">
+            </div>
             <input type="submit" id="btn" value="Add Blog">
             
         </form>
