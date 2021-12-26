@@ -7,7 +7,8 @@ const jwt = require("jsonwebtoken");  //json web token modulu dahil edildi.
 const maxAge = 60*60*24   // max süresini dışarıdan belirlendi.
 
 const createToken = (id) =>{
-    return jwt.sign({id}, "secretKey", {expiresIn: maxAge}) //expiresIN max süresini belirledik.
+    
+    return jwt.sign({ data: id, iat:maxAge}, 'secretKey');
 }
 
 
@@ -62,11 +63,11 @@ const controller ={
             if(!err && doc !=null){
                 var bytes = CryptoJS.AES.decrypt(doc.password, userLoginKey);
                 var decryptedData = bytes.toString(CryptoJS.enc.Utf8)
-
+                
                 if(decryptedData === password ){
-
+                    
                     try{
-                        const token = createToken(authorModel._id); // giren kullanıcı id göre jwt oluştur.
+                        const token = createToken(doc._id); // giren kullanıcı id göre jwt oluştur.
                         res.cookie("jwt", token, {httpOnly: true, maxAge: maxAge * 1000})  // tokenu cookie kaydettik.
                         res.redirect("/home");      // anasayfa bizi gönder
                         //res.status(200).json({msg : "Giriş Başarılı"})  // bu gelmeyecektir.

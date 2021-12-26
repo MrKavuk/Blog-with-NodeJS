@@ -14,7 +14,8 @@ const requiredAuth = (req,res,next)=>{
             }
 
             else{
-                console.log(decodedToken);
+                
+                req.author_id = decodedToken.data
                 next();
             }
 

@@ -3,7 +3,8 @@ const uuid = require('uuid')
 const path = require('path')
 const controller = {
     getBlogPage : (req,res)=>{
-        res.render('addBlog',{title : "Add Blog"})
+        console.log(req.author_id);
+        res.render('addBlog',{title : "Add Blog" })
     },
 
     getBlog :(req,res)=>{
@@ -21,8 +22,8 @@ const controller = {
             title : req.body.title,
             long :  req.body.long,
             short : req.body.long.substring(0,(req.body.long.length/4))+"...",
-            imgName : req.file.filename
-            
+            imgName : req.file.filename,
+            author : [req.author_id]
         })
         blog.save().then((result)=>{
             res.send(result)

@@ -3,6 +3,7 @@
     border-top-left-radius:20px;
     border-top-right-radius:20px;
     transition: opacity 0.2s ease;
+    object-fit: cover;
 }
 .post img:hover{
     opacity: 0.8;
