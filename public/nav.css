@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#nav-up{
+    line-height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: black;
+    
+}
+#nav-up ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+
+#nav-up li:hover{
+    background-color: red;
+}
+#nav-up a{
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    padding: 7px 12px;
+}
+#nav-up ul::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.center{
+    width: 1140px;
+    margin: 0 auto;
+}

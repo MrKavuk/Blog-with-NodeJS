@@ -3,7 +3,7 @@ const app = express();
 const {connectionHelper} = require('./dbconnect/connectionHelper')
 const bodyParser = require('body-parser')
 const { body, validationResult } = require('express-validator');
-
+const cookieParser = require("cookie-parser")
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -13,6 +13,11 @@ var path = require('path')
 const {routerHome} = require('./routes/homeRoutes')
 const {routerAuth} = require('./routes/authRoutes')
 const {routerBlog} = require('./routes/blogRoutes');
+
+
+//middleware require
+
+const {requiredAuth} = require("./middlewares/tokenMiddleware")
 
 const port = 8080;
 connectionHelper.connect()
@@ -25,9 +30,17 @@ app.listen(port, () => {
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/home',routerHome)
-app.use('/author',routerAuth)
-app.use('/blog',routerBlog)
+app.use(cookieParser())
+
+
+
+app.get("/", (req,res)=>{
+    res.redirect("/home")
+})
+
+app.use('/home',routerHome)   // router ile yolunu söyledim.
+app.use('/author',routerAuth)   // author kaldırdım nedeni direk olarak login olarak ulaşmamız için
+app.use('/blog',requiredAuth,routerBlog)  // blog kaldırdım direkt  getpage felan ulaşmamız için ama olmadı.
 app.use((req, res) => {
     res.status(400).render('404')
 })

@@ -1,17 +1,10 @@
-const { authorModel } = require('../models/author')
+const { webUserModel } = require('../models/webUser')
+const {blogModel} =  require('../models/blogs')
 const CryptoJS = require("crypto-js");
 const { userLoginKey } = require('../env/saveKeySha')
-// const {secretKey} = require('../env/tokenKey');
-const jwt = require("jsonwebtoken");  //json web token modulu dahil edildi.
-
-const maxAge = 60*60*24   // max süresini dışarıdan belirlendi.
-
-const createToken = (id) =>{
-    return jwt.sign({id}, "secretKey", {expiresIn: maxAge}) //expiresIN max süresini belirledik.
-}
+const controller = {
 
 
-const controller ={
     getLogin: (req, res) => {
         res.render('login', { title: "Login" })
     },
@@ -21,21 +14,24 @@ const controller ={
     getResetPassword: (req, res) => {
         res.render('reset', { title: "Reset Password" })
     },
+    getError: (req, res) => {
+        res.render('404')
+    },
+    setSignUp: (req, res) => {
 
-    postSignUp: (req, res) => {
-        console.log(req.body)
-        authorModel.findOne({ email: req.body.email }, (err, doc) => {
+        
+        webUserModel.findOne({ email: req.body.email }, (err, doc) => {
             if (!doc) {
                 var encryptPassword = CryptoJS.AES.encrypt(req.body.password, userLoginKey).toString();
 
-                author = new authorModel({
+                webUser = new webUserModel({
                     name: req.body.name,
                     surname: req.body.surname,
                     email: req.body.email,
                     username: req.body.username,
                     password: encryptPassword
                 })
-                author.save((err, doc) => {
+                webUser.save((err, doc) => {
                     if (!err && doc != null) {
                         res.status(201).json(doc)
                         console.log("Kayit basarili")
@@ -53,29 +49,18 @@ const controller ={
         })
 
     },
-    postLogin:  (req, res) => {
+    login: (req, res) => {
         email = req.body.email
         password = req.body.password
         
-        authorModel.findOne({email : email},(err , doc)=>{
+        webUserModel.findOne({email : email},(err , doc)=>{
 
             if(!err && doc !=null){
                 var bytes = CryptoJS.AES.decrypt(doc.password, userLoginKey);
                 var decryptedData = bytes.toString(CryptoJS.enc.Utf8)
 
                 if(decryptedData === password ){
-
-                    try{
-                        const token = createToken(authorModel._id); // giren kullanıcı id göre jwt oluştur.
-                        res.cookie("jwt", token, {httpOnly: true, maxAge: maxAge * 1000})  // tokenu cookie kaydettik.
-                        res.redirect("/home");      // anasayfa bizi gönder
-                        //res.status(200).json({msg : "Giriş Başarılı"})  // bu gelmeyecektir.
-                    }
-
-                    catch(error){
-                        console.log(error);
-                    }
-                   
+                    res.status(200).json({msg : "Giriş Başarılı"})
                 }
                 else{
                     
@@ -87,10 +72,37 @@ const controller ={
             }
 
         })
+    },
+    addBlog : (req,res)=>{
+        const blog = new blogModel({
+            title : req.body.title,
+            long :  req.body.long,
+            short : req.body.long.substring(0,(req.body.long.length/10))+"...",
+            // img: {
+            //     data: fs.readFileSync(path.join(__dirname + '/img/3.jpg')),
+            //     contentType: 'image/png'
+            // }
+        })
+        blog.save().then((result)=>{
+            res.send(result)
+        })
+        .catch((err)=>{
+            res.status(400).send("Blog Keydedilemedi")
+        })
+    },
+    getAddBlog : (req,res)=>{
+        res.render('addBlog',{title : "Add Blog"})
+    },
+    getBlog :(req,res)=>{
+        blogModel.findById(req.params.id).then((data)=>{
+            res.json(data)
+        }).catch((err)=>{
+            console.log(err);
+            res.render('404')
+        })
     }
-    
-}
 
-module.exports={
+}
+module.exports = {
     controller
 }

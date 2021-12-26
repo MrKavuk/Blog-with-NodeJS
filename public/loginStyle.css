@@ -1,0 +1,85 @@
+
+body{
+    background-color: #FAFAFA;
+}
+#log-in-container{
+    display: block;
+    width: 400px;
+    margin: 100px auto;
+    background-color:#FFFFFF ;
+    -webkit-box-shadow: 2px 4px 4px #adadad ;
+    -moz-box-shadow: 2px 4px 4px #adadad;
+    box-shadow: 2px 4px 4px  #adadad;
+}
+
+#heading{
+    
+    font-size: 40px;
+    text-align: center;
+    padding-top: 20px;
+    font-family: 'Lobster', cursive;
+
+}
+
+form {
+    padding: 20px 20px;
+    font-family: 'Lobster', cursive;
+}
+
+.form-element {
+    padding: 7px 12px;
+    width: 100%;
+    outline: 0;
+    border-radius: 4px;
+}
+.input-div{
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.input-div input{
+    width: 100%;
+    line-height: 30px;
+    font-size: 20px;
+    padding-left: 5px;
+    border: 1px solid #DBDBDB;
+    border-radius: 4px;
+}
+#btn{
+    height: 30px;
+    width: 100%;
+    color: white;
+    background-color: #0095F6;
+    outline: 0;
+    border: none;
+    border-radius: 4px;
+    opacity: 0.4;
+    pointer-events: none;
+
+
+}
+#btn:hover{
+    cursor: pointer;
+}
+
+.forgetPassword{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    
+}
+ a{
+    text-decoration: none;
+}
+#bottom{
+    width: 100%;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    background-color: #FFFFFF;   
+}
+.blue{
+    color:blue;
+}
+.aqua{
+    color: rgb(55, 153, 202);
+}
+
