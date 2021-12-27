@@ -28,19 +28,18 @@ const requiredAuth = (req,res,next)=>{
 }
 const checkUser = (req,res,next)=>{
     const token =req.cookies.jwt
-    console.log("CheckUser token : ",token)
+    
     if(token){
-        console.log("CheckUser If icinde (token var)")
+        
         jwt.verify(token, tokenKey, async (error, decodedToken)=>{
             if(error){
-                console.log("Token var ama gecerli değil req.locals.user null atandı")
+                
                 res.locals.user =null
                 next();
             }
 
             else{
                 res.locals.user = await authorModel.findById(decodedToken.data)
-                console.log("CheckUser data : ",res.locals.user)
                 next();
             }
 
@@ -48,9 +47,8 @@ const checkUser = (req,res,next)=>{
     }
 
     else{
-        console.log("token yok req.locals.user null atandı")
+        
         res.locals.user = null
-        console.log("req.locals.user = ",res.locals.user)
         next()
     }
 }

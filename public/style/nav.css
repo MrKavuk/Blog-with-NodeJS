@@ -12,13 +12,18 @@
 
     list-style: none;
 }
+.disMenu{
+    width: 100%;
+}
 .disMenu > li{
     float: left;
     position: relative;
-    min-width: 140px
-    
+    min-width: 140px ;
+    text-align: center; 
 }
-
+.disMenu > li:last-child{
+    float: right;
+}
 #nav-up li:hover{
     background-color: red;
 }
@@ -44,6 +49,8 @@
     top:100%;
     left: 0;
     width: 100%;
+    z-index: 1;
+    text-align: center;
 }
 
 li:hover .icMenu{
