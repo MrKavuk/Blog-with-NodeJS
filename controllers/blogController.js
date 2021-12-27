@@ -3,9 +3,21 @@ const uuid = require('uuid')
 const path = require('path')
 const controller = {
     getBlogPage : (req,res)=>{
-        res.render('addBlog',{title : "Add Blog" })
+            
+            res.render('addBlog',{title : "Add Blog",data : null})
+        
     },
-
+    getUpdateBlogPage : (req,res)=>{
+        blogModel.findById(req.params.id).then((blog)=>{
+            console.log("data : ",blog)
+            res.render('addBlog',{title : "Update Blog",data : blog })
+        }).catch((err)=>{
+            console.log(err);
+            res.render('404')
+        })
+        
+    
+    },
     getBlog :(req,res)=>{
         blogModel.findById(req.params.id).then((data)=>{
             res.json(data)
@@ -14,7 +26,14 @@ const controller = {
             res.render('404')
         })
     },
-
+    getMyblogs :(req,res)=>{
+        blogModel.find({author :req.params.id}).then((data)=>{
+            res.render('myBlogs',{blogs : data,title : "MyBlogs"})
+        }).catch((err)=>{
+            console.log(err);
+            res.render('404')
+        })
+    },
     postBlog : (req,res)=>{
         
         const blog = new blogModel({
@@ -31,7 +50,12 @@ const controller = {
             res.status(400).send("Blog Keydedilemedi")
         })
     },
-
+    updateBlog :(req,res) =>{
+        var short = req.body.long.substring(0,(req.body.long.length/4))
+        blogModel.updateOne({_id :req.params.id},{long : req.body.long, title : req.body.title, short: short }).then((data)=>{
+            res.redirect('/')
+        })
+    }
 
 }
 

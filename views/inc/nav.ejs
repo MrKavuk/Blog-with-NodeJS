@@ -3,7 +3,7 @@
         <ul class="disMenu">
             <li><a href="/"><i class="fas fa-home"></i> Home Page </a></li>
             <% if( user ) { %>
-                <li><a href="#"><i class="fas fa-user-plus"></i> Blog Yazılarım </a></li>
+                <li><a href="/blog/myBlogs/<%=user._id%>"><i class="fas fa-user-plus"></i> Blog Yazılarım </a></li>
                 <li><a  href="#"><i class="fas fa-blog"></i> <%=user.username %> </a>
                     <ul class="icMenu"> 
                         <li><a href=""> <i class="fas fa-user-cog"></i> Settings</a></li>
