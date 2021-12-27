@@ -8,6 +8,8 @@ routerAuth.get('/resetPassword',controller.getResetPassword)
 
 routerAuth.post('/signUp', controller.postSignUp )
 routerAuth.post('/login',controller.postLogin)
+
+routerAuth.get("/logout", controller.logout);
 module.exports ={
     routerAuth
 }
