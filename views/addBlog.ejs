@@ -8,6 +8,8 @@
 </head>
 <body>
     <div class="center">
+
+        <% if(data == null) {%>
         <form action="/blog/add" enctype="multipart/form-data" method="post">
             
             <div class="input-div">
@@ -19,9 +21,25 @@
             <div class="input-div">
                 <input type="file" name="webuserimage">
             </div>
+            
             <input type="submit" id="btn" value="Add Blog">
             
         </form>
+        <%} else{ %>
+        <form action="/blog/update/<%=data._id%>" enctype="multipart/form-data" method="post">
+           
+                <div class="input-div">
+                    <input type="text" class="form-element" name="title" value="<%=data.title %>" >
+                </div>
+                <div class="input-div">
+                    <textarea id="w3review" name="long" rows="25" ><%=data.long %></textarea>
+                </div>
+            
+
+            <input type="submit" id="btn" value="Add Blog">
+            
+        </form>
+        <% } %>
     </div>
 
     

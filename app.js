@@ -45,8 +45,6 @@ app.use(cookieParser())
 
 app.use('*',checkUser)
 
-
-
 app.use('/',routerHome)   // router ile yolunu söyledim.
 app.use('/author',routerAuth)   // author kaldırdım nedeni direk olarak login olarak ulaşmamız için
 app.use('/blog',upload.single('webuserimage'),routerBlog)  // blog kaldırdım direkt  getpage felan ulaşmamız için ama olmadı.
