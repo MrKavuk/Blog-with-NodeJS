@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 var uuid = require('uuid');
 var path = require('path')
+const {checkUser} = require('./middlewares/tokenMiddleware')
 
 const multer = require('multer')
 const fileStorageEngine = multer.diskStorage({
@@ -29,10 +30,6 @@ const {routerAuth} = require('./routes/authRoutes')
 const {routerBlog} = require('./routes/blogRoutes');
 
 
-//middleware require
-
-const {requiredAuth} = require("./middlewares/tokenMiddleware")
-
 const port = 8080;
 connectionHelper.connect()
 
@@ -46,15 +43,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(cookieParser())
 
+app.use('*',checkUser)
 
 
-app.get("/", (req,res)=>{
-    res.redirect("/home")
-})
 
-app.use('/home',routerHome)   // router ile yolunu söyledim.
+app.use('/',routerHome)   // router ile yolunu söyledim.
 app.use('/author',routerAuth)   // author kaldırdım nedeni direk olarak login olarak ulaşmamız için
-app.use('/blog',requiredAuth,upload.single('webuserimage'),routerBlog)  // blog kaldırdım direkt  getpage felan ulaşmamız için ama olmadı.
+app.use('/blog',upload.single('webuserimage'),routerBlog)  // blog kaldırdım direkt  getpage felan ulaşmamız için ama olmadı.
 app.use((req, res) => {
     res.status(400).render('404')
 })

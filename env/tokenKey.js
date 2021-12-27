@@ -1,3 +1,2 @@
 
-
-module.exports= secretKey="Gizli Kelime";
+module.exports = {tokenKey:"Gizli Kelime"};

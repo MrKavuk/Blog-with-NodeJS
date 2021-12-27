@@ -1,14 +1,14 @@
 const { authorModel } = require('../models/author')
 const CryptoJS = require("crypto-js");
 const { userLoginKey } = require('../env/saveKeySha')
-// const {secretKey} = require('../env/tokenKey');
+const {tokenKey} = require('../env/tokenKey');
 const jwt = require("jsonwebtoken");  //json web token modulu dahil edildi.
 
 const maxAge = 60*60*24   // max süresini dışarıdan belirlendi.
 
 const createToken = (id) =>{
     
-    return jwt.sign({ data: id, iat:maxAge}, 'secretKey');
+    return jwt.sign({ data: id, iat:maxAge}, tokenKey);
 }
 
 
@@ -69,7 +69,7 @@ const controller ={
                     try{
                         const token = createToken(doc._id); // giren kullanıcı id göre jwt oluştur.
                         res.cookie("jwt", token, {httpOnly: true, maxAge: maxAge * 1000})  // tokenu cookie kaydettik.
-                        res.redirect("/home");      // anasayfa bizi gönder
+                        res.redirect("/");      // anasayfa bizi gönder
                         //res.status(200).json({msg : "Giriş Başarılı"})  // bu gelmeyecektir.
                     }
 
