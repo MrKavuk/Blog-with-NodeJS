@@ -1,2 +1,2 @@
 # Blog-Sample
-  Simple blog site creation
+  Blog site creation with NodeJS
