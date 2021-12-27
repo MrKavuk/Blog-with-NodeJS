@@ -3,7 +3,6 @@ const uuid = require('uuid')
 const path = require('path')
 const controller = {
     getBlogPage : (req,res)=>{
-        console.log(req.author_id);
         res.render('addBlog',{title : "Add Blog" })
     },
 
