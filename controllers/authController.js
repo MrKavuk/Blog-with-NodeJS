@@ -44,7 +44,7 @@ const controller ={
                 })
                 author.save((err, doc) => {
                     if (!err && doc != null) {
-                        res.status(201).json(doc)
+                        res.redirect('/author/login')
                         console.log("Kayit basarili")
                     }
                     else {
@@ -109,8 +109,8 @@ const controller ={
 
             service: 'gmail',
             auth: {
-                user: 'soydan14533@gmail.com',
-                pass: '1453*03040'
+                user: 'test.destek.999@gmail.com',
+                pass: '123*102030'
             }
         })
 
@@ -121,17 +121,14 @@ const controller ={
             .then((doc)=>{
                 if(doc != null){
 
-
-              
-                   
                     var bytes = CryptoJS.AES.decrypt(doc.password, userLoginKey);
                     var decryptedData = bytes.toString(CryptoJS.enc.Utf8)
                     console.log(decryptedData);
 
                     var mailOptions = {
-                        from: 'soydan14533@gmail.com',
+                        from: 'test.destek.999@gmail.com',
                         to: req.body.email,
-                        subject: 'Şifreniz',
+                        subject: 'Şifre Hatırlatma',
                         text: decryptedData
                        
                     }
@@ -139,7 +136,7 @@ const controller ={
                   
                     transport.sendMail(mailOptions,(err,data)=>{
                         if(!err){
-                            console.log("Mail Gönderildi.")
+                            console.log("Kayıt Başarılı")
                         }
 
                         else{
@@ -147,13 +144,13 @@ const controller ={
                         }
                     })
         
-                    res.json({msg: "Mail Gönderildi."})
+                    res.redirect('/author/login')
                 }
     
     
     
             else{
-                res.status(500).json({msg:"E posta hatalı"})
+                res.status(500).json({msg:"Girilen Eposta Bulunamadı"})
             }
             })
 
