@@ -4,7 +4,13 @@ const { userLoginKey } = require('../env/saveKeySha')
 const {tokenKey} = require('../env/tokenKey');
 const jwt = require("jsonwebtoken");  //json web token modulu dahil edildi.
 
+const nodemailer = require("nodemailer");  //mail modulu dahil edildi.
+const { response } = require('express');
+
 const maxAge = 60*60*24   // max süresini dışarıdan belirlendi.
+
+
+
 
 const createToken = (id) =>{
     
@@ -24,7 +30,7 @@ const controller ={
     },
 
     postSignUp: (req, res) => {
-        console.log(req.body)
+       // console.log(req.body)
         authorModel.findOne({ email: req.body.email }, (err, doc) => {
             if (!doc) {
                 var encryptPassword = CryptoJS.AES.encrypt(req.body.password, userLoginKey).toString();
@@ -61,6 +67,7 @@ const controller ={
         authorModel.findOne({email : email},(err , doc)=>{
 
             if(!err && doc !=null){
+                
                 var bytes = CryptoJS.AES.decrypt(doc.password, userLoginKey);
                 var decryptedData = bytes.toString(CryptoJS.enc.Utf8)
                 
@@ -93,7 +100,71 @@ const controller ={
     logout: (req,res)=>{
         res.cookie("jwt", "", {maxAge:1});
         res.redirect("/author/login");
+    },
+
+    postResetPassword: (req,res)=>{
+
+              
+        var transport = nodemailer.createTransport({
+
+            service: 'gmail',
+            auth: {
+                user: 'soydan14533@gmail.com',
+                pass: '1453*03040'
+            }
+        })
+
+
+        email = req.body.email
+
+        authorModel.findOne({email: req.body.email})
+            .then((doc)=>{
+                if(doc != null){
+
+
+              
+                   
+                    var bytes = CryptoJS.AES.decrypt(doc.password, userLoginKey);
+                    var decryptedData = bytes.toString(CryptoJS.enc.Utf8)
+                    console.log(decryptedData);
+
+                    var mailOptions = {
+                        from: 'soydan14533@gmail.com',
+                        to: req.body.email,
+                        subject: 'Şifreniz',
+                        text: decryptedData
+                       
+                    }
+        
+                  
+                    transport.sendMail(mailOptions,(err,data)=>{
+                        if(!err){
+                            console.log("Mail Gönderildi.")
+                        }
+
+                        else{
+                            console.log("Mail Gönderilemedi");
+                        }
+                    })
+        
+                    res.json({msg: "Mail Gönderildi."})
+                }
+    
+    
+    
+            else{
+                res.status(500).json({msg:"E posta hatalı"})
+            }
+            })
+
+        .catch((err) => {
+            console.log(err);
+        })
+                
+
     }
+
+
     
 }
 
