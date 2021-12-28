@@ -109,8 +109,8 @@ const controller ={
 
             service: 'gmail',
             auth: {
-                user: 'test.destek.999@gmail.com',
-                pass: '123*102030'
+                user: 'eposta',
+                pass: 'şifre'
             }
         })
 
@@ -126,10 +126,10 @@ const controller ={
                     console.log(decryptedData);
 
                     var mailOptions = {
-                        from: 'test.destek.999@gmail.com',
+                        from: 'eposta',
                         to: req.body.email,
                         subject: 'Şifre Hatırlatma',
-                        text: decryptedData
+                        text: "Şifreniz : "+ decryptedData
                        
                     }
         
