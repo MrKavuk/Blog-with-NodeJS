@@ -38,6 +38,16 @@
     right: 10px;
     opacity: 0.8;
 }
+.author{
+    position: absolute;
+    bottom: -4px;
+    left: 16px;
+    padding: 7px 12px;
+    background-color: yellow;
+    border-radius: 5px;
+    color: black;
+    font-weight: bold;
+}
 .post-header{
     font-size: 30px;
     text-align: center;

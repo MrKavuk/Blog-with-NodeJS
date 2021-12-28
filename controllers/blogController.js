@@ -19,7 +19,7 @@ const controller = {
     
     },
     getBlog :(req,res)=>{
-        blogModel.findById(req.params.id).then((data)=>{
+        blogModel.findById(req.params.id).populate('author').then((data)=>{
             res.json(data)
         }).catch((err)=>{
             console.log(err);
@@ -27,7 +27,7 @@ const controller = {
         })
     },
     getMyblogs :(req,res)=>{
-        blogModel.find({author :req.params.id}).then((data)=>{
+        blogModel.find({author :req.params.id}).populate('author').then((data)=>{
             res.render('myBlogs',{blogs : data,title : "MyBlogs"})
         }).catch((err)=>{
             console.log(err);
@@ -44,16 +44,29 @@ const controller = {
             author : [req.author_id]
         })
         blog.save().then((result)=>{
-            res.send(result)
+            res.redirect('/')
         })
         .catch((err)=>{
             res.status(400).send("Blog Keydedilemedi")
         })
     },
     updateBlog :(req,res) =>{
-        var short = req.body.long.substring(0,(req.body.long.length/4))
+        var short = req.body.long.substring(0,(req.body.long.length/4)) + " ..."
         blogModel.updateOne({_id :req.params.id},{long : req.body.long, title : req.body.title, short: short }).then((data)=>{
             res.redirect('/')
+        })
+    },
+    deleteBlog : (req,res) =>{
+        blogModel.deleteOne({_id : req.params.id}).then((data)=>{
+            if(data){
+                console.log("Data Silindi")
+                console.log(data)
+                res.redirect('/')
+            }
+            else{
+                res.json({msg : "Veri Silinemedi"})
+            }
+            
         })
     }
 

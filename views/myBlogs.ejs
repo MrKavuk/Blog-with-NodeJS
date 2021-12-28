@@ -28,9 +28,11 @@
                                 <p><%=blog.short %></p>
                                 <p class="date"><%=blog.createdAt%></p>
                                 <ul class="etiket">
-                                    <li><a href="/blog/getUpdateBlogPage/<%=blog._id%>">Düzenle</a></li>
+                                    <li><a href="/blog/getUpdateBlogPage/<%=blog._id%>">Update</a></li>
+                                    <li><a href="/blog/deleteBlog/<%=blog._id%>">Delete</a></li>
                                     
                                 </ul>
+                                <p class="author">Yazar : <%=blog.author.name%> </p>
                             </div>
 
                         </div>
