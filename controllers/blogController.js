@@ -20,7 +20,7 @@ const controller = {
     },
     getBlog :(req,res)=>{
         blogModel.findById(req.params.id).populate('author').then((data)=>{
-            res.json(data)
+            res.render('blogPostPage', {title: "deneme", blog:data})
         }).catch((err)=>{
             console.log(err);
             res.render('404')

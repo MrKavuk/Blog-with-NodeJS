@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <%-include('./inc/headHome')%>
+    <link rel="stylesheet" href="/style/nav.css">
+    <link rel="stylesheet" href="/style/homePage.css">
+
+
+    
+</head>
+
+<body>
+    <%-include('./inc/nav')%>
+
+    <h2 style="position: absolute; top:8px;left :12px ; color: white;">Node Blog </h2>
+
+    <div class="center container">
+            
+             <ul>
+                
+                    <li>   
+                        <div class="post radius-20px">
+                          <img src="/img/<%=blog.imgName%>" alt="" style="width: 1200px; height: 500px; object-fit: cover;"><br><br>
+                            <div class="post-body">
+                                <h1 class="post-header" ><%=blog.title %></h1><br><br>
+                                <p class="post-long"><%=blog.long %></p>
+
+                                <div class="author-div">
+                                    <p class="author" style="text-align: left;">Yazar : <%=blog.author.username %></p>
+                                </div>
+                                
+
+                                <div class="date-div">
+                                    <p class="date" style="text-align: right; "><%=blog.createdAt%></p>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                    </li>
+                
+           
+            
+        </ul>
+        
+    </div>
+
+
+
+</body>
+
+</html>
