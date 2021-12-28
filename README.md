@@ -1,2 +1,2 @@
 # Blog-Sample
-  Blog site creation with NodeJS
+Blog site creation with nodejs express 
