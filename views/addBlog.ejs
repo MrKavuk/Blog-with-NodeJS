@@ -4,11 +4,12 @@
     
     <%-include('./inc/headHome')%>
     <link rel="stylesheet" href="/style/addBlogForm.css">
+    <link rel="stylesheet" href="/style/nav.css">
     
 </head>
 <body>
+    <%-include('./inc/nav')%>
     <div class="center">
-
         <% if(data == null) {%>
         <form action="/blog/add" enctype="multipart/form-data" method="post">
             
