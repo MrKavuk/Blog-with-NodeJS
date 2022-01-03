@@ -6,6 +6,8 @@ routerAuth.get("/login", controller.getLogin)
 routerAuth.get("/signUp", controller.getSignUp)
 routerAuth.get('/resetPassword',controller.getResetPassword)
 
+routerAuth.get('/changePassword/:id', controller.getChangePassword )
+routerAuth.post('/changePassword/',controller.changePassword)
 routerAuth.post('/signUp', controller.postSignUp )
 routerAuth.post('/login',controller.postLogin)
 

@@ -3,7 +3,7 @@ const CryptoJS = require("crypto-js");
 const { userLoginKey } = require('../env/saveKeySha')
 const {tokenKey} = require('../env/tokenKey');
 const jwt = require("jsonwebtoken");  //json web token modulu dahil edildi.
-
+const uuid = require("uuid")
 const nodemailer = require("nodemailer");  //mail modulu dahil edildi.
 const { response } = require('express');
 
@@ -49,7 +49,7 @@ const controller ={
                     }
                     else {
                         res.status(400).json({
-                            msg: "Kayıt Başarısız"
+                            msg: err
                         })
                     }
                 })
@@ -102,63 +102,78 @@ const controller ={
         res.redirect("/author/login");
     },
 
-    postResetPassword: (req,res)=>{
+    postResetPassword: async (req,res)=>{
 
               
         var transport = nodemailer.createTransport({
 
             service: 'gmail',
             auth: {
-                user: 'eposta',
-                pass: 'şifre'
+                user: 'email',
+                pass: 'sifre'
             }
         })
 
 
         email = req.body.email
 
-        authorModel.findOne({email: req.body.email})
-            .then((doc)=>{
-                if(doc != null){
+        doc = await authorModel.findOne({email: req.body.email})
 
-                    var bytes = CryptoJS.AES.decrypt(doc.password, userLoginKey);
-                    var decryptedData = bytes.toString(CryptoJS.enc.Utf8)
-                    console.log(decryptedData);
-
-                    var mailOptions = {
-                        from: 'eposta',
-                        to: req.body.email,
-                        subject: 'Şifre Hatırlatma',
-                        text: "Şifreniz : "+ decryptedData
-                       
-                    }
-        
-                  
-                    transport.sendMail(mailOptions,(err,data)=>{
-                        if(!err){
-                            console.log("Kayıt Başarılı")
-                        }
-
-                        else{
-                            console.log("Mail Gönderilemedi");
-                        }
-                    })
-        
-                    res.redirect('/author/login')
-                }
-    
-    
-    
-            else{
-                res.status(500).json({msg:"Girilen Eposta Bulunamadı"})
+        if(doc != null){
+            
+            var textReset = uuid.v1()
+            var mailOptions = {
+                from: 'eposta',
+                to: req.body.email,
+                subject: 'Şifre Değiştirme',
+                text: `Şifrenizi değiştirmek için tıklayın : http://localhost:8080/author/changePassword/${textReset}`
+               
             }
-            })
 
-        .catch((err) => {
-            console.log(err);
-        })
+          
+            transport.sendMail(mailOptions,(err,data)=>{
+                if(!err){
+                    console.log("Kayıt Başarılı")
+                }
+
+                else{
+                    console.log("Mail Gönderilemedi");
+                }
+            })
+            await authorModel.updateOne({email : doc.email},{reset : textReset})
+            
+            res.redirect('/author/login')
+        }
+
+                
+    
+    
+        else{
+            res.status(500).json({msg:"Girilen Eposta Bulunamadı"})
+        }
+            
                 
 
+    },
+    getChangePassword : (req,res)=>{
+       
+        authorModel.findOne({reset : req.params.id},(err,doc)=>{
+            
+            if(doc){
+                
+                res.render('resetPassword',{email : doc.email,title :"Change"})
+                
+            }
+            else{
+                res.json({msg : "reset istegi bulunamadi"})
+            }
+        })
+    }
+    ,
+    changePassword : async (req,res)=>{
+        var encryptPassword = CryptoJS.AES.encrypt(req.body.password, userLoginKey).toString();
+        await authorModel.updateOne({email : req.body.email},{password : encryptPassword,reset : null})
+        res.redirect('/')
     }
 
 
