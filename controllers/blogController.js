@@ -3,6 +3,8 @@ const {commentModel} = require('../models/comment')
 const{authorModel} = require('../models/author')
 const uuid = require('uuid')
 const path = require('path')
+const moment = require('moment'); //moment modulu eklendi
+const { convert } = require('html-to-text');
 const controller = {
     getBlogPage : (req,res)=>{
             
@@ -22,6 +24,7 @@ const controller = {
     },
     getBlog :(req,res)=>{
         blogModel.findById(req.params.id).populate('author comments').then((data)=>{
+            
             res.status(200).render('blogPostPage', {title: data.title, blog:data})
         }).catch((err)=>{
             console.log(err);
@@ -29,7 +32,7 @@ const controller = {
         })
     },
     getMyblogs :(req,res)=>{
-        blogModel.find({author :req.params.id}).populate('author','comments').then((data)=>{
+        blogModel.find({author :req.params.id}).populate('author comments').then((data)=>{
             res.render('myBlogs',{blogs : data,title : "MyBlogs"})
         }).catch((err)=>{
             console.log(err);
@@ -37,13 +40,15 @@ const controller = {
         })
     },
     postBlog : (req,res)=>{
-        
+        long= req.body.long
+        console.log(long)
         const blog = new blogModel({
             title : req.body.title,
-            long :  req.body.long,
-            short : req.body.long.substring(0,(req.body.long.length/4))+"...",
+            long :  long,
+            short : long.substring(0,(req.body.long.length/4))+"...",
             imgName : req.file.filename,
-            author : [req.author_id]
+            author : [req.author_id],
+            createdAt: moment().locale("tr").format("LLL")
         })
         blog.save().then((result)=>{
             res.redirect('/')

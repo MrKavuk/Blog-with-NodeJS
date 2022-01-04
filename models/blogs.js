@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+
 const blogSchema = new Schema({
     title: {
         type:String,
@@ -14,12 +15,16 @@ const blogSchema = new Schema({
         type:String,
         require:true
     },
+
+    createdAt:{
+        type:String,
+    },
     author:{type : Schema.Types.ObjectId , ref :'Author'},
     comments:[{type : Schema.Types.ObjectId , ref :'Comment'}],
     commentSize :{type:Number, default:0 },
     imgName:{type:String}
 
-},{timestamps: true})
+})
 
 const blogModel = mongoose.model('Blog',blogSchema);
 

@@ -109,7 +109,7 @@ const controller ={
 
             service: 'gmail',
             auth: {
-                user: 'email',
+                user: 'eposta',
                 pass: 'sifre'
             }
         })

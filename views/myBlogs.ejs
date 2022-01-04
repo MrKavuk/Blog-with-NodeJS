@@ -25,7 +25,7 @@
                             <a href="/blog/get/<%=blog._id%>"><img src="/img/<%=blog.imgName%>" alt=""></a>
                             <div class="post-body">
                                 <h3 class="post-header"><a href="/blog/get/<%=blog._id%>"><%=blog.title %></a></h3>
-                                <p><%=blog.short %></p>
+                                <p><%-blog.short %></p>
                                 <p class="date"><%=blog.createdAt%></p>
                                 <ul class="etiket">
                                     <li><a href="/blog/getUpdateBlogPage/<%=blog._id%>">Update</a></li>

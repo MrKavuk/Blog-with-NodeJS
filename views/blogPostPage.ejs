@@ -6,6 +6,7 @@
     <%-include('./inc/headHome')%>
     <link rel="stylesheet" href="/style/nav.css">
     <link rel="stylesheet" href="/style/homePage.css">
+    <script src="/ckeditor/ckeditor.js" type="text/Javascript"></script>
 
 
     
@@ -25,7 +26,7 @@
                           <img src="/img/<%=blog.imgName%>"  alt="" ><br><br>
                             <div class="post-body">
                                 <h1 class="post-header" ><%=blog.title %></h1><br><br>
-                                <p class="post-long"><%=blog.long %></p>
+                                <p class="post-long" id="post-long" ><%- blog.long %></p>
 
                                 <div class="author-div">
                                     <p class="author" style="text-align: left;">Yazar : <%=blog.author.username %></p>
@@ -66,6 +67,7 @@
         </ul>
         
     </div>
+
 
 
 </body>

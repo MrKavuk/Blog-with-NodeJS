@@ -5,6 +5,7 @@
     <%-include('./inc/headHome')%>
     <link rel="stylesheet" href="/style/addBlogForm.css">
     <link rel="stylesheet" href="/style/nav.css">
+    <script src="/ckeditor/ckeditor.js" type="text/Javascript"></script>
     
 </head>
 <body>
@@ -33,7 +34,7 @@
                     <input type="text" class="form-element" name="title" value="<%=data.title %>" >
                 </div>
                 <div class="input-div">
-                    <textarea id="w3review" name="long" rows="25" ><%=data.long %></textarea>
+                    <textarea id="w3review" name="long" rows="25" ><%= data.long %></textarea>
                 </div>
             
 
@@ -42,6 +43,13 @@
         </form>
         <% } %>
     </div>
+
+    <script>
+       
+        CKEDITOR.replace('w3review')
+       
+       
+    </script>
 
     
 </body>
