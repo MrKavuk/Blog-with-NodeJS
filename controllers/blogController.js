@@ -1,4 +1,6 @@
 const {blogModel} =  require('../models/blogs')
+const {commentModel} = require('../models/comment')
+const{authorModel} = require('../models/author')
 const uuid = require('uuid')
 const path = require('path')
 const controller = {
@@ -19,15 +21,15 @@ const controller = {
     
     },
     getBlog :(req,res)=>{
-        blogModel.findById(req.params.id).populate('author').then((data)=>{
-            res.render('blogPostPage', {title: "deneme", blog:data})
+        blogModel.findById(req.params.id).populate('author comments').then((data)=>{
+            res.status(200).render('blogPostPage', {title: data.title, blog:data})
         }).catch((err)=>{
             console.log(err);
             res.render('404')
         })
     },
     getMyblogs :(req,res)=>{
-        blogModel.find({author :req.params.id}).populate('author').then((data)=>{
+        blogModel.find({author :req.params.id}).populate('author','comments').then((data)=>{
             res.render('myBlogs',{blogs : data,title : "MyBlogs"})
         }).catch((err)=>{
             console.log(err);
@@ -56,6 +58,30 @@ const controller = {
             res.redirect('/')
         })
     },
+    addComment : async(req,res) =>{
+        author = await authorModel.findById(req.body.authorId)
+        comment = new commentModel({
+            author : author.name,
+            blogId : req.body.blogId,
+            comment : req.body.comment
+
+        })
+        comment.save().then((result)=>{
+            console.log(" Comment : " ,result)
+            blogModel.findOne({_id : req.body.blogId}).exec((err,blog)=>{
+                if(blog){
+                    blog.comments.push(result._id)
+                    blog.commentSize = blog.commentSize+1
+                    blog.save()
+
+                }
+               res.redirect(`/blog/get/${req.body.blogId}`)
+            })
+            
+            
+        })
+    }
+    ,
     deleteBlog : (req,res) =>{
         blogModel.deleteOne({_id : req.params.id}).then((data)=>{
             if(data){
@@ -69,7 +95,6 @@ const controller = {
             
         })
     }
-
 }
 
 module.exports ={ controller }

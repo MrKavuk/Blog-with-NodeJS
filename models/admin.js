@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 
-const webUserSchema = new Schema({
+const adminSchema = new Schema({
 
     name: {type : String, required: true},
     surname: {type : String, required: true},
@@ -12,9 +12,9 @@ const webUserSchema = new Schema({
     
 })
 
-const webUserModel = mongoose.model("WebUser", webUserSchema)
+const adminModel = mongoose.model("Admin", adminSchema)
 
 module.exports={
     
-    webUserModel
+    adminModel
 }

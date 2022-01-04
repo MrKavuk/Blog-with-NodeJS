@@ -37,16 +37,35 @@
                                 </div>
                                 
                             </div>
-
+                            <ul>
+                                <% if(user){%>
+                                <li>
+                                    <h4>Yorum Yaz</h4>
+                                    <form action="/blog/comment" method="post">
+                                        <input type="text" name="comment" placeholder="Yorum yaz">
+                                        <input type="text" style="visibility:hidden; width: 0;" name="authorId" value=<%=user._id%> >
+                                        <input type="text" style="visibility:hidden; width: 0;" name="blogId" value=<%=blog._id%> >
+                                        <br>
+                                        <input type="submit" value="Gönder" >
+                                    </form>
+                                </li> 
+                                <% } %>
+                                <li><h4>Yorumlar</h4></li> 
+                                <% blog.comments.forEach((data)=>{ %>
+                                    <li>
+                                        <p><%=data.comment%> <span style="background-color: yellow;">Yazar : <%=data.author%></span>  </p>
+                                    </li>
+                                <% }) %>
+                            </ul>
                         </div>
                     </li>
+                    
                 
            
             
         </ul>
         
     </div>
-
 
 
 </body>

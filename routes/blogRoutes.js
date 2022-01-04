@@ -13,7 +13,7 @@ routerBlog.get('/deleteBlog/:id',requiredAuth,controller.deleteBlog)
 routerBlog.post('/add',requiredAuth,controller.postBlog)
 routerBlog.post('/update/:id',requiredAuth,controller.updateBlog)
 routerBlog.post('/delete',requiredAuth,controller.deleteBlog)
-
+routerBlog.post('/comment',requiredAuth,controller.addComment)
 module.exports ={
     routerBlog
 }

@@ -4,9 +4,9 @@ const {Schema} = mongoose;
 
 const commentSchema = new Schema({
 
-    user: {type : String, ref :'Author'},
-    comment: {type : String, required: true}
-    
+    author:{type : String },
+    comment: {type : String, required: true},
+    blogId:{type : Schema.Types.ObjectId , ref :'Blog'},
     
 })
 
