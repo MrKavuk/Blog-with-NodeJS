@@ -7,6 +7,9 @@
                     <ul class="icMenu"> 
                         <li><a href="/blog/myBlogs/<%=user._id%>"> My Blog Posts </a></li>
                         <li><a href="/blog/getPage"> Add Blog</a></li>
+                        <% if( user.position == "admin" ) { %>
+                        <li><a href="/blog/getComments">Approval Comments</a></li> 
+                        <% } %>  
                     </ul>
                     
                 </li>

@@ -27,7 +27,7 @@ const fileStorageEngine = multer.diskStorage({
 // routers require
 const {routerHome} = require('./routes/homeRoutes')
 const {routerAuth} = require('./routes/authRoutes')
-const {routerBlog} = require('./routes/blogRoutes');
+const {routerBlog} = require('./routes/blogRoutes')
 
 
 const port = 8080;
@@ -49,7 +49,7 @@ app.use('/',routerHome)   // router ile yolunu söyledim.
 app.use('/author',routerAuth)   // author kaldırdım nedeni direk olarak login olarak ulaşmamız için
 app.use('/blog',upload.single('webuserimage'),routerBlog)  // blog kaldırdım direkt  getpage felan ulaşmamız için ama olmadı.
 app.use((req, res) => {
-    res.status(400).render('404')
+    res.render('404')
 })
 
 

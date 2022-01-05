@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <%-include('./inc/headHome')%>
+    <link rel="stylesheet" href="/style/nav.css">
+    <link rel="stylesheet" href="/style/homePage.css">
+    <link rel="stylesheet" href="/style/card.css">
+    <style>
+        #controlComment .text{
+            pointer-events: none;
+        }
+        #controlComment input:first-child{
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <%-include('./inc/nav')%>
+    
+    
+    <h2 style="position: absolute; top:8px;left :12px ; color: white;">Node Blog </h2>
+
+    <div class="center container">          
+             <ul>
+                <h3 class="post-header">Comments Pending Approval</h3>
+                <% comments.forEach( (comment) => { %>
+                    <li>   
+                        <div class="post radius-20px">
+                            <div class="post-body">
+                                <form id="controlComment" method="post" action="/blog/comment">
+                                    <input class="text" type="text" name="comment" value="<%=comment.comment%>">
+                                    <input class="text" type="text" name="blogId" value="<%=comment.blogId%>">
+                                    <input class="text" type="text" name="author" value="<%=comment.author%>">
+                                    <input class="text" type="text" name="controlId" value="<%=comment._id%>" style="width: 0; border: none;" >
+                                    <br>
+                                    <input type="submit" value="Approve">
+                                </form>
+                                <p></p>
+                                <ul class="etiket">
+                                
+                                    <li><a href="">Delete</a></li>
+                                    
+                                </ul>
+                                <p class="author">Yorumu Yazan Kişi : <%=comment.author%> </p>
+                            </div>
+
+                        </div>
+                    </li>
+                
+                <% }) %> 
+            
+        </ul>
+        
+    </div>
+
+
+
+</body>
+
+</html>

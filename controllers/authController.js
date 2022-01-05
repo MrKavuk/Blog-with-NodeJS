@@ -40,7 +40,8 @@ const controller ={
                     surname: req.body.surname,
                     email: req.body.email,
                     username: req.body.username,
-                    password: encryptPassword
+                    password: encryptPassword,
+                    position: "author"
                 })
                 author.save((err, doc) => {
                     if (!err && doc != null) {

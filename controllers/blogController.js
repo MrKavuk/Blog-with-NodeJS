@@ -1,5 +1,6 @@
 const {blogModel} =  require('../models/blogs')
 const {commentModel} = require('../models/comment')
+const {controlCommentModel} = require('../models/controlComment')
 const{authorModel} = require('../models/author')
 const uuid = require('uuid')
 const path = require('path')
@@ -63,10 +64,37 @@ const controller = {
             res.redirect('/')
         })
     },
-    addComment : async(req,res) =>{
+    getComment : (req,res)=>{
+        controlCommentModel.find((err,comments)=>{
+            if(!err){
+                res.render('commentPage',{comments : comments, title : "Comments"})
+            }
+            else{
+                res.status(400).render('404',{title : "Error"})
+            }
+            
+        })
+    },
+    addControlComment : async(req,res) =>{
         author = await authorModel.findById(req.body.authorId)
-        comment = new commentModel({
+        comment = new controlCommentModel({
             author : author.name,
+            blogId : req.body.blogId,
+            comment : req.body.comment
+
+        })
+        comment.save().then((result)=>{
+            console.log(" Comment Add Admin Panel: " ,result)    
+            res.redirect(`/blog/get/${req.body.blogId}`)
+ 
+        })
+    }
+    ,
+    addComment : async(req,res) =>{
+        console.log(" silinecek control id : "+req.body.controlId)
+        await controlCommentModel.deleteOne({_id : req.body.controlId})
+        comment = new commentModel({
+            author : req.body.author,
             blogId : req.body.blogId,
             comment : req.body.comment
 

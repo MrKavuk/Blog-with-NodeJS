@@ -9,6 +9,7 @@ const authorSchema = new Schema({
     email: {type : String, required: true, unique:true},
     username: {type : String, required: true, unique:true},
     password: {type : String, required: true},
+    position: {type : String, required: true},
     reset: {type : String}
     
 })
