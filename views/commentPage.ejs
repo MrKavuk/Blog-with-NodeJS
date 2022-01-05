@@ -40,8 +40,11 @@
                                 </form>
                                 <p></p>
                                 <ul class="etiket">
-                                
-                                    <li><a href="">Delete</a></li>
+                                    
+                                    <form  method="post" action="/blog/deleteComment">
+                                        <input class="text" type="text" name="controlId" value="<%=comment._id%>" style="width: 0; border: none;" >
+                                        <input type="submit" value="Delete">
+                                    </form>
                                     
                                 </ul>
                                 <p class="author">Yorumu Yazan Kişi : <%=comment.author%> </p>

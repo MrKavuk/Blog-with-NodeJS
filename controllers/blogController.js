@@ -90,6 +90,12 @@ const controller = {
         })
     }
     ,
+
+    deleteComment: async (req,res)=>{
+        await controlCommentModel.deleteOne({_id : req.body.controlId})
+        res.redirect('/blog/getComments')
+    } 
+    ,
     addComment : async(req,res) =>{
         console.log(" silinecek control id : "+req.body.controlId)
         await controlCommentModel.deleteOne({_id : req.body.controlId})

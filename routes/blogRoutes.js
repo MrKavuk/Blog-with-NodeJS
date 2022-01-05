@@ -20,6 +20,7 @@ routerBlog.post('/update/:id',requiredAuth,controller.updateBlog)
 routerBlog.post('/delete',requiredDelete,controller.deleteBlog)
 routerBlog.post('/commentControl',requiredAuth,controller.addControlComment)
 routerBlog.post('/comment',requiredAdmin,controller.addComment)
+routerBlog.post('/deleteComment',requiredAdmin,controller.deleteComment)
 module.exports ={
     routerBlog
 }
