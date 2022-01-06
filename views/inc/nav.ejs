@@ -1,35 +1,38 @@
-<nav id="nav-up">
-    <div class="center">
-        <ul class="disMenu">
-            <li><a href="/"><i class="fas fa-home"></i> Home Page </a></li>
-            <% if( user ) { %>
-                <li><a href="#"><i class="fas fa-user-plus"></i> Blog Actions </a>
-                    <ul class="icMenu"> 
-                        <li><a href="/blog/myBlogs/<%=user._id%>"> My Blog Posts </a></li>
-                        <li><a href="/blog/getPage"> Add Blog</a></li>
-                        <% if( user.position == "admin" ) { %>
-                        <li><a href="/blog/getComments">Approval Comments</a></li> 
-                        <% } %>  
-                    </ul>
-                    
-                </li>
-                <li><a  href="#"><i class="fas fa-blog"></i> <%=user.username %> </a>
-                    <ul class="icMenu"> 
-                        <li><a href=""> <i class="fas fa-user-cog"></i> Settings</a></li>
-                        <li><a href="/author/logout"> <i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                    </ul>
-                </li>
-
-            <% } else { %>
-                <li><a href="/author/signUp"><i class="fas fa-user-plus"></i> Sign Up </a></li>
-                <li><a href="/author/login"> Login <i class="fas fa-sign-in-alt"></i></a></li>
-             <% } %>
-        </ul>
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/">Node Blog</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/">Home</a></li>
+                <% if( user ) { %>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Blog Actions</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/myBlogs/<%=user._id%>">My Blog Posts</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/getPage">Add Blog</a></li>
+                    <% if( user.position == "admin" ) { %>   
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/getComments">Approval Comments</a></li> 
+                    <% } %>    
+                           
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/"><%=user.username %></a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#"> <i class="fas fa-user-cog"></i> Settings</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/author/logout"> <i class="fas fa-sign-out-alt"></i> Logout</a></li>   
+                        
+                <% } else { %>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/author/signUp">Sign Up</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/author/login">Login</a></li>
+                <% } %>
+            </ul>
+        </div>
     </div>
-
+</nav>
 
 
 </nav>
+    
 
 
 
