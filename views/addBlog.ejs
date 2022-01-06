@@ -15,13 +15,24 @@
         <form action="/blog/add" enctype="multipart/form-data" method="post">
             
             <div class="input-div">
-                <input type="text" class="form-element" name="title" placeholder="Blog başlığı girin" required  >
+                <input type="text" class="form-element" name="title" placeholder="Blog başlığı girin"   >
             </div>
             <div class="input-div">
                 <textarea id="w3review" name="long" rows="25" ></textarea>
             </div>
             <div class="input-div">
                 <input type="file" name="webuserimage">
+            </div>
+
+            <div class="input-div">
+                <label for="category">Choose a Category:</label>
+
+                <select name="category" id="category">
+                    <option value="Technology">Technology</option>
+                    <option value="News">News</option>
+                    <option value="Personal writing">Personal writing</option>
+                    <option value="history of art" selected>History of Art</option>
+                </select>
             </div>
             
             <input type="submit" id="btn" value="Add Blog">
@@ -36,7 +47,18 @@
                 <div class="input-div">
                     <textarea id="w3review" name="long" rows="25" ><%= data.long %></textarea>
                 </div>
-            
+                
+                <div class="input-div">
+                    <label for="category">Choose a Category:</label>
+    
+                    <select name="category" id="category"  >
+                        <option value=<%= data.category %>><%= data.category %> </option>
+                        <option value="Technology">Technology</option>
+                        <option value="News">News</option>
+                        <option value="Personal writing">Personal writing</option>
+                        <option value="history of art" >History of Art</option>
+                    </select>
+                </div>
 
             <input type="submit" id="btn" value="Update Blog">
             

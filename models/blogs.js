@@ -19,6 +19,11 @@ const blogSchema = new Schema({
     createdAt:{
         type:String,
     },
+
+    category: { 
+        type:String
+    }
+    ,
     author:{type : Schema.Types.ObjectId , ref :'Author'},
     comments:[{type : Schema.Types.ObjectId , ref :'Comment'}],
     commentSize :{type:Number, default:0 },

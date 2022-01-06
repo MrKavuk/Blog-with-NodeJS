@@ -42,12 +42,16 @@ const controller = {
     },
     postBlog : (req,res)=>{
         long= req.body.long
-        console.log(long)
+        console.log(req.file)
+        if(!req.file){
+            return  res.redirect("/blog/getPage")
+        }
         const blog = new blogModel({
             title : req.body.title,
             long :  long,
             short : long.substring(0,(req.body.long.length/4))+"...",
             imgName : req.file.filename,
+            category: req.body.category,
             author : [req.author_id],
             createdAt: moment().locale("tr").format("LLL")
         })
@@ -60,7 +64,7 @@ const controller = {
     },
     updateBlog :(req,res) =>{
         var short = req.body.long.substring(0,(req.body.long.length/4)) + " ..."
-        blogModel.updateOne({_id :req.params.id},{long : req.body.long, title : req.body.title, short: short }).then((data)=>{
+        blogModel.updateOne({_id :req.params.id},{long : req.body.long, title : req.body.title, short: short, category:req.body.category }).then((data)=>{
             res.redirect('/')
         })
     },
