@@ -2,16 +2,16 @@
 <html lang="tr">
 
 <head>
-    <%-include('./inc/headFont') %>
-    <%-include('./inc/headHome')%>
+    <%-include('./inc/head')%>
     <link rel="stylesheet" href="/style/loginStyle.css">
-    <link rel="stylesheet" href="/style/nav.css">
-
+    
 </head>
 
 <body>
     
-    <%-include('./inc/nav')%>
+    <header class="masthead" style="background-image: url('img/home-bg.jpg'); padding-top: 2rem;padding-bottom: 3rem;">
+        <%-include('./inc/nav')%>
+    </header>
 
     <div id="log-in-container">
         <h3 id="heading">Log In</h3>
@@ -37,6 +37,10 @@
         </form>
     </div>
     <script src="/script/login.js"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="script/scripts.js"></script>
 </body>
 
 </html>

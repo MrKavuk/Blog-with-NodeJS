@@ -1,61 +1,44 @@
 <!DOCTYPE html>
 <html lang="tr">
 
-<head>
+    <head>
 
-    <%-include('./inc/head')%>
+        <%-include('./inc/head')%>
 
-</head>
+    </head>
 
-<body>
-    <%-include('./inc/nav')%>
-
-    <header class="masthead" style="background-image: url('img/home-bg.jpg')">
-        <div class="container position-relative px-4 px-lg-5">
+    <body>
+        <%-include('./inc/nav')%>
+        <%-include('./inc/header')%>
+        
+        <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="site-heading">
-                        <h1>My Blogs</h1>
-                        <span class="subheading">Welcome to Blogs</span>
-                    </div>
+                    <!-- Post preview-->
+                    <% blogs.forEach( (blog) => { %>
+                        <div class="post-preview">
+                            <a href="/blog/get/<%=blog._id%>">
+                                <h2 class="post-title"><%=blog.title %></h2>
+                                <h3 class="post-subtitle"><%-blog.short %></h3>
+                            </a>
+                            <p class="post-meta">
+                                Posted by
+                                <a href="#"><%=blog.author.username %></a>
+                                <%=blog.createdAt%>
+                            </p>
+                        </div>
+                        <hr class="my-4" />
+                    <% }) %>     
+                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
                 </div>
             </div>
         </div>
-    </header>
-    <div class="center container">
-            
-             <ul>
-                <% blogs.forEach( (blog) => { %>
-                    <li>   
-                        <div class="post radius-20px">
-                            <a href="/blog/get/<%=blog._id%>"><img src="/img/<%=blog.imgName%>" alt=""></a>
-                            <div class="post-body">
-                                <h3 class="post-header"><a href="/blog/get/<%=blog._id%>"><%=blog.title %></a></h3>
-                                <p><%-blog.short %></p>
-                                <p class="date" ><%=blog.createdAt%></p>
-                                <p class="author">Yazar : <%=blog.author.username %></p>
-                                <!-- <ul class="etiket">
-                                    <li><a href="">Html5</a></li>
-                                    <li><a href="">Css3</a></li>
-                                    <li><a href="">Boostrap</a></li>
-                                    <li><a href="">JavaScript</a></li>
-                                </ul> -->
-                            </div>
-
-                        </div>
-                    </li>
-                
-                <% }) %> 
-            
-        </ul>
         
-    </div>
-    
 
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="script/scripts.js"></script>
-</body>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="script/scripts.js"></script>
+    </body>
 
 </html>
