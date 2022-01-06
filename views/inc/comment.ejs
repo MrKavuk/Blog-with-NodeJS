@@ -21,8 +21,8 @@
                     <form id="contactForm"  action="/blog/commentControl" method="post">
            
                         <div class="form-floating">
-                            <textarea class="form-control" id="message"  name="comment" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required" required></textarea>
-                            <label for="message">Message</label>
+                            <textarea class="form-control" id="message"  name="comment" placeholder="Enter your message here..." style="height: 12rem; background-color: #f2f2f2; padding-left: 1rem;padding-right: 1rem;" data-sb-validations="required" required></textarea>
+                            <label for="message" style="padding-left: 1.4rem;">Message</label>
                              <input type="text" style="visibility:hidden; width: 0;" name="authorId" value=<%=user._id%>>
                              <input type="text" style="visibility:hidden; width: 0;" name="blogId" value=<%=blog._id%> >
                         </div>
