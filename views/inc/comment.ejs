@@ -1,0 +1,86 @@
+
+    <% if(user){%>
+ 
+        <h4 style="text-align: center;">Yorum Yaz</h4>
+
+        
+        <!-- Main Content-->
+        <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+
+                <div class="my-5">
+                    <!-- * * * * * * * * * * * * * * *-->
+                    <!-- * * SB Forms Contact Form * *-->
+                    <!-- * * * * * * * * * * * * * * *-->
+                    <!-- This form is pre-integrated with SB Forms.-->
+                    <!-- To make this form functional, sign up at-->
+                    <!-- https://startbootstrap.com/solution/contact-forms-->
+                    <!-- to get an API token!-->
+                    <form id="contactForm"  action="/blog/commentControl" method="post">
+           
+                        <div class="form-floating">
+                            <textarea class="form-control" id="message"  name="comment" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required" required></textarea>
+                            <label for="message">Message</label>
+                             <input type="text" style="visibility:hidden; width: 0;" name="authorId" value=<%=user._id%>>
+                             <input type="text" style="visibility:hidden; width: 0;" name="blogId" value=<%=blog._id%> >
+                        </div>
+                        <br />
+                        <!-- Submit success message-->
+                        <!---->
+                        <!-- This is what your users will see when the form-->
+                        <!-- has successfully submitted-->
+                        <div class="d-none" id="submitSuccessMessage">
+                            <div class="text-center mb-3">
+                                <div class="fw-bolder">Form submission successful!</div>
+                               
+                                <br />
+                              
+                            </div>
+                        </div>
+                         <!-- Submit Button-->
+                         <input type="submit" value="Gönder" style="background-color: aqua; border-radius: 5px;">
+                    </form>
+                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+  
+  
+    <% } %>
+    <br/>
+    <h4 style="text-align: center;">Yorumlar</h4>
+    <% blog.comments.forEach((data)=>{ %>
+        
+        <div class="d-flex justify-content-center py-2"  >
+            <div class="second py-2 px-2" > <span class="text1"><%=data.comment%></span>
+                <div class="d-flex justify-content-between py-1 pt-2">
+                    <div><span class="text2">Yazan: <%=data.author%></span></div>
+                </div>
+            </div>
+        </div>
+    
+    <% }) %>
+
+</div>
+
+
+
+
+
+
+<!-- <div class="d-flex justify-content-center py-2">
+    <div class="second py-2 px-2"> <span class="text1">Type your note, and hit enter to add it</span>
+        <div class="d-flex justify-content-between py-1 pt-2">
+            <div><span class="text2">sirius</span></div>
+            <div><span class="text3">Upvote?</span><span class="thumbup"><i class="fa fa-thumbs-o-up"></i></span><span class="text4">3</span></div>
+        </div>
+    </div>
+</div> -->
+
+
+
+

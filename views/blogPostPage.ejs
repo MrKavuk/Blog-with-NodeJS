@@ -2,10 +2,12 @@
 <html lang="tr">
 
 <head>
+    <%-include('./inc/head')%>
 
-    <%-include('./inc/headHome')%>
-    <link rel="stylesheet" href="/style/nav.css">
-    <link rel="stylesheet" href="/style/homePage.css">
+    
+
+    <link rel="stylesheet" href="/style/commentStyle.css">
+
     <script src="/ckeditor/ckeditor.js" type="text/Javascript"></script>
 
 
@@ -14,61 +16,23 @@
 
 <body>
     <%-include('./inc/nav')%>
+   
 
     <h2 style="position: absolute; top:8px;left :12px ; color: white;">Node Blog </h2>
 
-    <div class="center container">
-            
-             <ul>
-                
-                    <li>   
-                        <div class="post blog radius-20px">
-                          <img src="/img/<%=blog.imgName%>"  alt="" ><br><br>
-                            <div class="post-body">
-                                <h1 class="post-header" ><%=blog.title %></h1><br><br>
-                                <p class="post-long" id="post-long" style="width: 100%;"><%-blog.long %></p>
+    <%-include('./inc/headerImg')%> 
+    <%-include('./inc/article') %> 
 
-                                <div class="author-div">
-                                    <p class="author" style="text-align: left;">Yazar : <%=blog.author.username %></p>
-                                </div>
-                                
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="script/scripts.js"></script>
 
-                                <div class="date-div">
-                                    <p class="date" style="text-align: right; "><%=blog.createdAt%></p>
-                                </div>
-                                
-                            </div>
-                            <ul>
-                                <% if(user){%>
-                                <li>
-                                    <h4>Yorum Yaz</h4>
-                                    <form action="/blog/commentControl" method="post">
-                                        <input type="text" name="comment" placeholder="Yorum yaz">
-                                        <input type="text" style="visibility:hidden; width: 0;" name="authorId" value=<%=user._id%> >
-                                        <input type="text" style="visibility:hidden; width: 0;" name="blogId" value=<%=blog._id%> >
-                                        <br>
-                                        <input type="submit" value="Gönder" >
-                                    </form>
-                                </li> 
-                                <% } %>
-                                <li><h4>Yorumlar</h4></li> 
-                                <% blog.comments.forEach((data)=>{ %>
-                                    <li>
-                                        <p><%=data.comment%> <span style="background-color: yellow;">Yazar : <%=data.author%></span>  </p>
-                                    </li>
-                                <% }) %>
-                            </ul>
-                        </div>
-                    </li>
-                    
-                
-           
-            
-        </ul>
-        
-    </div>
-
-
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
 </body>
 
