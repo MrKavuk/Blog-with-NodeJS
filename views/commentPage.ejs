@@ -11,7 +11,51 @@
         line-height: 15px;
         border: none;
        } 
+       @media only screen and (min-width: 1400px) {
+        .deleteBtn{
+            position: absolute !important; 
+            bottom: 10.5% !important; 
+            right: 0 !important;
+            padding-top: 0;padding-bottom: 0;
+       }
+       }
+       @media only screen and (min-width: 1200px) {
+        .deleteBtn{
+            position: relative;
+            display: block !important; 
+            margin-left: 46% !important;
+            padding-top: 0;
+            padding-bottom: 0;
+       }
+       }
+       @media only screen and (min-width: 770px) {
+        .deleteBtn{
+            position: relative;
+            display: block !important; 
+            margin-left: 46% !important;
+            padding-top: 0;
+            padding-bottom: 0;
+       }
+       }
+       @media only screen and (min-width: 500px) {
+        .deleteBtn{
+            position: relative;
+            display: block !important; 
+            margin-left: 41% !important;
+            padding-top: 0;
+            padding-bottom: 0;
+       }
+       }
+       @media only screen and (max-width: 500px) {
+        .deleteBtn{
+            position: relative;
+            display: block !important; 
+            margin-left: 38% !important;
+            padding-top: 0;padding-bottom: 0;
+       }
+}
     </style>
+    <link rel="stylesheet" href="/style/btn.css">
 </head>
 
 <body>
@@ -20,31 +64,55 @@
     </header>
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="col-md-10 col-lg-8 col-xl-7" style="position: relative;">
                 <h3 class="post-header" style="text-align: center;">Comments Pending Approval</h3>
                 <!-- Post preview-->
                 <% comments.forEach( (comment) => { %>
-                    <div class="post-preview">
-                        <form id="controlComment" method="post" action="/blog/comment">
-                            <input class="text" type="text" name="comment" value="<%=comment.comment%>">
-                            <input class="text" type="text" name="blogId" value="<%=comment.blogId%>">
-                            <input class="text" type="text" name="author" value="<%=comment.author%>" style="width: 0; border: none;">
-                            <input class="text" type="text" name="controlId" value="<%=comment._id%>" style="width: 0; border: none;" >
-                            <br>
-                            <input type="submit" value="Approve">
-                        </form>
-                        <form  method="post" action="/blog/deleteComment">
-                            <input class="text" type="text" name="controlId" value="<%=comment._id%>" style="width: 0; border: none;" >
-                            <input type="submit" value="Delete">
-                        </form>
-                        <p class="post-meta">
-                            Comment by
-                            <a href="#"><%=comment.author%></a>
+                    <div style="position: relative;">
+                        <form  action="/blog/comment" id="contactForm" method="post" style="width: 50%; margin: 0 auto;" >
+                            <div id="message" class="form-floating warning"></div>
+                            <div class="form-floating" style="pointer-events: none;">
+                                <input class="form-control" id="comment" name="comment" type="text" value="<%=comment.comment%>" required />
+                                <label for="comment">Comment</label>
+                                
+                            </div>
+                            <div class="form-floating" style="pointer-events: none;">
+                                <input class="form-control" id="blogId" name="blogId" type="text" value="<%=comment.blogId%>" required />
+                                <label for="blogId">Blog Id</label>
+                                
+                            </div>
+                            <div class="form-floating" style="pointer-events: none;">
+                                <input class="text" type="text" name="author" value="<%=comment.author%>" style="width: 0; height: 0; border: none;">
+                            </div>
+                            <div class="form-floating" style="pointer-events: none;">
+                                <input class="text" type="text" name="controlId" value="<%=comment._id%>" style="width: 0; height: 0; border: none;" >
+                            </div>
                             
-                        </p>
+                            <br />
+                        
+                            <div class="center" style="padding-top: 0;padding-bottom: 0; margin:0">
+                                <div class="inputbox">
+                                    <input type="submit" id="btn" value="Approve">
+                                </div> 
+                            </div>
+                            
+                        </form>
+                        
+                        <form  method="post" action="/blog/deleteComment" style="display: inline-block;">
+                            <input class="text" type="text" name="controlId" value="<%=comment._id%>" style="width: 0; border: none;" >
+                            <div class="center deleteBtn"  style="padding-top: 0;padding-bottom: 0; display: block; margin-left: 38%;">
+                                <div class="inputbox">
+                                    <input type="submit" id="btn" value="Delete">
+                                </div> 
+                            </div>
+                        </form>
                     </div>
-                    <hr class="my-4" />
-                <% }) %>     
+                    
+                    <p class="post-meta" style="text-align: center;">
+                        Commented by <%=comment.author%>
+                        
+                    </p>
+                    <% }) %>     
                 
             </div>
         </div>
