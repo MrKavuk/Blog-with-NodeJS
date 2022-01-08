@@ -42,14 +42,17 @@ const controller = {
     },
     postBlog : (req,res)=>{
         long= req.body.long
-        console.log(req.file)
+        const text = convert(long, {
+            wordwrap: 130
+          });
+          
         if(!req.file){
             return  res.redirect("/blog/getPage")
         }
         const blog = new blogModel({
             title : req.body.title,
             long :  long,
-            short : long.substring(0,(req.body.long.length/4))+"...",
+            short : text.substring(0,(req.body.long.length/4))+"...",
             imgName : req.file.filename,
             category: req.body.category,
             author : [req.author_id],
