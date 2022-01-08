@@ -28,7 +28,7 @@ const controller ={
     getResetPassword: (req, res) => {
         res.render('reset', { title: "Reset Password" })
     },
-
+    
     postSignUp: (req, res) => {
        // console.log(req.body)
         authorModel.findOne({ email: req.body.email }, (err, doc) => {
