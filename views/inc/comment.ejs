@@ -5,6 +5,7 @@
 
         <!-- Main Content-->
         <main class="mb-4">
+<<<<<<< HEAD
             <div class="container px-4 px-lg-5" style="padding-left:0 !important ;padding-right:0 !important;">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7" style="width: 100%;">
@@ -28,6 +29,50 @@
                                 </div>
                             </form>
                         
+=======
+        <div class="container px-4 px-lg-5" style="padding-left:0 !important ;padding-right:0 !important;">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7" style="width: 100%;">
+
+                <div class="my-5">
+                    <!-- * * * * * * * * * * * * * * *-->
+                    <!-- * * SB Forms Contact Form * *-->
+                    <!-- * * * * * * * * * * * * * * *-->
+                    <!-- This form is pre-integrated with SB Forms.-->
+                    <!-- To make this form functional, sign up at-->
+                    <!-- https://startbootstrap.com/solution/contact-forms-->
+                    <!-- to get an API token!-->
+                    <form id="contactForm"  action="/blog/commentControl" method="post" >
+                        
+                        <div class="form-floating">
+                            <textarea class="form-control" id="message"  name="comment" placeholder="Enter your message here..." style="height: 12rem; background-color: #f2f2f2; padding-left: 1rem;padding-right: 1rem;" data-sb-validations="required" required></textarea>
+                            <label for="message" style="padding-left: 1.4rem;">Message</label>
+                             <input type="text" style="visibility:hidden; width: 0;" name="authorId" value=<%=user._id%>>
+                             <input type="text" style="visibility:hidden; width: 0;" name="blogId" value=<%=blog._id%> >
+                        </div>
+                        <br />
+                        <!-- Submit success message-->
+                        <!---->
+                        <!-- This is what your users will see when the form-->
+                        <!-- has successfully submitted-->
+                        <div class="d-none" id="submitSuccessMessage">
+                            <div class="text-center mb-3">
+                                <div class="fw-bolder">Form submission successful!</div>
+                               
+                                <br />
+                              
+                            </div>
+                        </div>
+                         <!-- Submit Button-->
+                         <div class="center">
+                            <div class="inputbox">
+                                <input type="submit" id="btn" value="Send">
+                            </div> 
+                        </div>
+                    </form>
+                    
+                            </div>
+>>>>>>> da769d2a9b0d54523a5386c39aed7a431b0c2500
                         </div>
                     </div>
                 </div>
@@ -37,11 +82,14 @@
     <% } %>
     <br/>
     <h4 style="text-align: center;">Comments</h4>
+<<<<<<< HEAD
     <%if(blog.comments.length == 0 ) { %>
         <div>
             <p style="text-align: center;">Henüz Yorum Yapılmadı</p>
         </div>
     <% } else { %>
+=======
+>>>>>>> da769d2a9b0d54523a5386c39aed7a431b0c2500
     <% blog.comments.forEach((data)=>{ %>
         
         <div class="d-flex justify-content-center py-2"  >
