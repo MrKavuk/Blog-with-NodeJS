@@ -1,11 +1,11 @@
 const { body, check,validationResult } = require('express-validator')
 var bodyParser = require('body-parser')
-
+const { authorModel } = require('../models/author')
 // parse application/x-www-form-urlencoded
 bodyParser.urlencoded({ extended: false })
 
 
-const signUpValidation = ()=>{
+const changePasswordValidation = ()=>{
 
     return [
         body("password").isStrongPassword({
@@ -16,35 +16,38 @@ const signUpValidation = ()=>{
             minSymbols: 1
         })
         .withMessage("Password: Password must be greater than 8 and contain at least one uppercase letter, one lowercase letter, one symbols and one number"),
-
-        body("email").notEmpty().withMessage("Email: here cannot be left blank."),
-
-        body("username").isLength({min: 4}).withMessage("Username: must be at least 4 chars long")
     ]
 
 }
 
 
-const signUpValidate = (req, res, next) => {
+const changePasswordValidate = (req, res, next) => {
     const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-        
-        const alert = errors.array();
-        res.render("signup",{
-            title: "Sign Up",
-            alert
-        })
-    }
 
-    else{
-        console.log(req.body)
-        return next()
-    }
+        if (!errors.isEmpty()) {
+        
+            const alert = errors.array();
+            res.render("resetPassword",{
+                title: "Change",
+                email: req.body.email,
+                alert
+            })
+            console.log("alert")
+        }
+    
+        else{
+            console.log(req.body)
+            return next()
+        }
+    
+
+
+
 
   }
 
 
   module.exports ={
-    signUpValidation,
-    signUpValidate
+    changePasswordValidation,
+    changePasswordValidate
   }

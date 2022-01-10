@@ -3,7 +3,7 @@ const routerBlog = express.Router()
 const {controller} = require('../controllers/blogController')
 //middleware require
 
-const {requiredAdmin,requiredDelete,requiredAuth,myBlogValidate} = require("../middlewares/tokenMiddleware")
+const {requiredAdmin,requiredDelete,requiredAuth} = require("../middlewares/tokenMiddleware")
 
 const {blogValidationRules,blogValidate} = require("../middlewares/blogValidationMiddleware")
 
@@ -12,7 +12,7 @@ const {blogValidationRules,blogValidate} = require("../middlewares/blogValidatio
 routerBlog.get("/getPage",requiredAuth,controller.getBlogPage)
 routerBlog.get("/getUpdateBlogPage/:id",requiredAuth,controller.getUpdateBlogPage)
 routerBlog.get("/get/:id",controller.getBlog)
-routerBlog.get("/myBlogs/:id",myBlogValidate,controller.getMyblogs)
+routerBlog.get("/myBlogs/:id",controller.getMyblogs)
 routerBlog.get('/deleteBlog/:id',requiredDelete,controller.deleteBlog)
 routerBlog.get('/getComments',requiredAdmin,controller.getComment)
 

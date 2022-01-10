@@ -15,6 +15,10 @@
     </header>
     <div id="log-in-container">
 
+      
+
+        <h3 id="heading" style="text-align: center;">Sign Up</h3>
+
         <% if(typeof alert != "undefined"){ %> 
             <% alert.forEach(function(error){ %> 
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -25,9 +29,16 @@
                   <% }) %>
         <% } %>  
 
-        <h3 id="heading" style="text-align: center;">Sign Up</h3>
 
-      
+        <% if(typeof error != "undefined"){ %> 
+         
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+               <%= error%> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
+             
+    <% } %>  
                 
 
 

@@ -11,7 +11,7 @@ const { response } = require('express');
 
 const maxAge = 60*60*24   // max süresini dışarıdan belirlendi.
 
-const maxTime =60
+const maxTime =900
 
 
 const createToken = (id) =>{
@@ -71,7 +71,7 @@ const controller ={
                            
                         }
                         else {
-                            res.status(400).json({
+                            console.log({
                                 msg: err
                             })
                         }
@@ -113,7 +113,8 @@ const controller ={
               
             }
             else {
-                res.status(400).json({ msg: "Eposta zaten kayıtlı" })
+                res.render("login",{title:"Log In", error:"The e-mail is already registered."})
+                // res.status(400).json({ msg: "Eposta zaten kayıtlı" })
             }
         })
 
@@ -211,7 +212,7 @@ const controller ={
     
     
         else{
-            res.status(500).json({msg:"Girilen Eposta Bulunamadı"})
+            res.render("reset", {title: "Reset Password", error: "No such user found!"})
         }
             
                 
@@ -237,8 +238,8 @@ const controller ={
            
             else{
                 res.cookie("resetToken", "", {maxTime: 1})
-                //res.redirect("/author/resetPassword")
-                res.json({msg : "yetki bulunamadi"})
+                res.redirect("/author/resetPassword")
+                // res.json({msg : "yetki bulunamadi"})
             }
         })
         
@@ -252,7 +253,8 @@ const controller ={
     changePassword : async (req,res)=>{
         var encryptPassword = CryptoJS.AES.encrypt(req.body.password, userLoginKey).toString();
         await authorModel.updateOne({email : req.body.email},{password : encryptPassword,reset : null})
-        res.redirect('/')
+        res.cookie("jwtLink", "", {maxTime: 1})
+        res.redirect('/author/login')
     },
 
 
@@ -273,13 +275,15 @@ const controller ={
 
 
                 else{
-                    res.json({msg: "Bu üyelik onaylanmıştır."})
+                    res.render("login",{title: "login", error:"This subscription has been confirmed."})
+                    // res.json({msg: "Bu üyelik onaylanmıştır."})
                 }
               
             }
             
             else{
-                console.log("Böyle bir kullanıcı bulunamadı.")
+                res.render("signup",{title: "Sign Up", error:"No such user was found."})
+                // console.log("Böyle bir kullanıcı bulunamadı.")
             }
             
             
