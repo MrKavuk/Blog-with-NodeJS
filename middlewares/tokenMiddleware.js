@@ -117,6 +117,33 @@ const requiredAdmin = (req,res,next)=>{
         res.redirect("/author/login");
     }
 }
+const myBlogValidate = (req, res, next) => {
+    const token = req.cookies.jwt
+    if(token){
+        jwt.verify(token, tokenKey, async (error, decodedToken)=>{
+            if(error){
+                console.log(error);
+                res.status(400).redirect("/author/login");
+            }
+
+            else{
+                
+                if(req.params.id == decodedToken.data){
+                    next();
+                }
+                else{
+                    res.redirect("/");
+                }
+                
+            }
+
+        })
+    }
+
+    else{
+        res.redirect("/author/login");
+    }
+}
 
 //Reset password link middleware
 const resetPasswordAuth = (req,res,next)=>{
@@ -155,6 +182,7 @@ module.exports = {
     checkUser,
     requiredAdmin,
     requiredDelete,
-    resetPasswordAuth
+    resetPasswordAuth,
+    myBlogValidate
    
 }
