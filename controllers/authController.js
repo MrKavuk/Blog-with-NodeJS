@@ -7,15 +7,25 @@ const uuid = require("uuid")
 const nodemailer = require("nodemailer");  //mail modulu dahil edildi.
 const { response } = require('express');
 
+
+
 const maxAge = 60*60*24   // max süresini dışarıdan belirlendi.
 
-
+const maxTime =60
 
 
 const createToken = (id) =>{
     
     return jwt.sign({ data: id, iat:maxAge}, tokenKey);
 }
+
+const ResetToken = (email) =>{
+
+    return  jwt.sign({ email: email}, tokenKey, {expiresIn: maxTime});
+
+}
+
+
 
 
 const controller ={
@@ -31,7 +41,10 @@ const controller ={
     
     postSignUp: (req, res) => {
        // console.log(req.body)
-        authorModel.findOne({ email: req.body.email }, (err, doc) => {
+       const isValid = false
+       email= req.body.email
+       var uniqueString = uuid.v1()
+        authorModel.findOne({ email: req.body.email}, (err, doc) => {
             if (!doc) {
                 var encryptPassword = CryptoJS.AES.encrypt(req.body.password, userLoginKey).toString();
 
@@ -41,19 +54,63 @@ const controller ={
                     email: req.body.email,
                     username: req.body.username,
                     password: encryptPassword,
-                    position: "author"
+                    position: "author",
+                    isValid: isValid,
+                    uniqueString: uniqueString
+                    
+                    
                 })
-                author.save((err, doc) => {
-                    if (!err && doc != null) {
-                        res.redirect('/author/login')
-                        console.log("Kayit basarili")
-                    }
-                    else {
-                        res.status(400).json({
-                            msg: err
+               
+                 
+                    author.save((err, doc) => {
+                        if (!err && doc != null) {
+                            console.log(doc);
+                         
+                            res.redirect('/author/login')
+                            console.log("Kayit basarili")
+                           
+                        }
+                        else {
+                            res.status(400).json({
+                                msg: err
+                            })
+                        }
+                    })
+
+                   
+
+                 
+                    function sendMail (email, uniqueString){
+                      
+                        var transport1= nodemailer.createTransport({
+                            service: "gmail",
+
+                            auth: {
+                                user: 'test.destek.999@gmail.com',
+                                pass: '.blog2696_'
+                            }
+                        })
+
+                        var mailOptions1 = {
+                            from: "eposta",
+                            to: email,
+                            subject: "Email confirmation",
+                            html: `Press <a href=http://localhost:8080/author/verify/${uniqueString}> here </a> to verify your email. Thanks`
+                        }
+
+                        transport1.sendMail(mailOptions1, function(error,response){
+                            if(error){
+                                console.log(error);
+                            }
+                            else{
+                                console.log("Message Sent")
+                            }
                         })
                     }
-                })
+
+                    sendMail(email, uniqueString )
+                
+              
             }
             else {
                 res.status(400).json({ msg: "Eposta zaten kayıtlı" })
@@ -87,12 +144,12 @@ const controller ={
                    
                 }
                 else{
-                    
-                    res.status(400).json({msg : "Şifre Hatalı"})
+                  
+                    res.render('login', { title: "Login" , error: "mail or password is incorrect!"})
                 }
             }
             else{
-                res.status(400).json({msg : "Eposta Hatalı"})
+                res.render('login', { title: "Login" , error: "mail or password is incorrect!"})
             }
 
         })
@@ -103,6 +160,8 @@ const controller ={
         res.redirect("/author/login");
     },
 
+
+    //Reset password link token
     postResetPassword: async (req,res)=>{
 
               
@@ -110,8 +169,8 @@ const controller ={
 
             service: 'gmail',
             auth: {
-                user: 'eposta',
-                pass: 'sifre'
+                user: 'test.destek.999@gmail.com',
+                pass: '.blog2696_'
             }
         })
 
@@ -123,11 +182,13 @@ const controller ={
         if(doc != null){
             
             var textReset = uuid.v1()
+            var tokenLink=ResetToken(req.body.email)
+            res.cookie("jwtLink", tokenLink, {httpOnly: true, maxTime: maxTime * 1000})
             var mailOptions = {
                 from: 'eposta',
                 to: req.body.email,
                 subject: 'Şifre Değiştirme',
-                text: `Şifrenizi değiştirmek için tıklayın : http://localhost:8080/author/changePassword/${textReset}`
+                text: `Şifrenizi değiştirmek için tıklayın (Not: Linkin geçerlilik süresi 1 dakikadır.): http://localhost:8080/author/changePassword/${textReset}/${tokenLink}`
                
             }
 
@@ -156,30 +217,77 @@ const controller ={
                 
 
     },
+
+    //Reset password link Cookies de varsa yoksa kontrol
     getChangePassword : (req,res)=>{
-       
+
+
         authorModel.findOne({reset : req.params.id},(err,doc)=>{
-            
+        if(req.cookies.jwtLink!=undefined || req.cookies.jwtLink !=null){
+
             if(doc){
                 
                 res.render('resetPassword',{email : doc.email,title :"Change"})
                 
             }
+
+
+
+        }
+           
             else{
-                res.json({msg : "reset istegi bulunamadi"})
+                res.cookie("resetToken", "", {maxTime: 1})
+                //res.redirect("/author/resetPassword")
+                res.json({msg : "yetki bulunamadi"})
             }
         })
-    }
+        
+        }
+
+    
+
+ 
+        
     ,
     changePassword : async (req,res)=>{
         var encryptPassword = CryptoJS.AES.encrypt(req.body.password, userLoginKey).toString();
         await authorModel.updateOne({email : req.body.email},{password : encryptPassword,reset : null})
         res.redirect('/')
+    },
+
+
+
+    verify: async (req,res)=>{
+        uniqueString =req.params.uniqueString
+        console.log("Ne",req.params.uniqueString)
+        
+        user =await authorModel.findOne({ uniqueString: uniqueString })
+
+            if(user){
+
+                if(user.isValid != "true"){
+                    user.isValid = true;
+                    user.save();
+                    res.redirect('/author/login')
+                }
+
+
+                else{
+                    res.json({msg: "Bu üyelik onaylanmıştır."})
+                }
+              
+            }
+            
+            else{
+                console.log("Böyle bir kullanıcı bulunamadı.")
+            }
+            
+            
+    }
+    
+    
     }
 
-
-    
-}
 
 module.exports={
     controller

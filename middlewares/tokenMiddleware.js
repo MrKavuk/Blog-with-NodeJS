@@ -3,6 +3,8 @@ const {tokenKey} = require('../env/tokenKey')
 const jwt = require("jsonwebtoken");
 const {authorModel} = require('../models/author')
 const {blogModel} = require('../models/blogs')
+
+
 const requiredAuth = (req,res,next)=>{
     const token = req.cookies.jwt
 
@@ -116,9 +118,43 @@ const requiredAdmin = (req,res,next)=>{
     }
 }
 
+//Reset password link middleware
+const resetPasswordAuth = (req,res,next)=>{
+    const token = req.cookies.jwtLink
+
+    if(token){
+        jwt.verify(token, tokenKey, (error, decodedToken)=>{
+            if(error){
+               // console.log(error);
+                console.log("buradayım error if")
+                res.redirect("/author/resetPassword");
+            }
+
+            else{
+                
+                req.author_email = decodedToken.data
+                next();
+                console.log("buradayım error if else içinde")
+              
+            }
+
+        })
+    }
+
+    else{
+        console.log("token yoksa")
+        res.redirect("/author/resetPassword");
+    }
+}
+
+
+
+
 module.exports = {
     requiredAuth,
     checkUser,
     requiredAdmin,
-    requiredDelete 
+    requiredDelete,
+    resetPasswordAuth
+   
 }

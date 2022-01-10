@@ -10,7 +10,10 @@ const authorSchema = new Schema({
     username: {type : String, required: true, unique:true},
     password: {type : String, required: true},
     position: {type : String, required: true},
-    reset: {type : String}
+    reset: {type : String},
+    isValid: {type: String},
+    uniqueString: {type: String, unique:true}
+    
     
 })
 
