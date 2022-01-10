@@ -17,15 +17,6 @@
                     <div class="site-heading">
                         <h1>Add Blog</h1>
 
-                        <% if(typeof alert != "undefined"){ %> 
-                            <% alert.forEach(function(error){ %> 
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                   <%= error.msg %> 
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                  </div>
-                
-                                  <% }) %>
-                        <% } %>  
 
                     </div>
                 </div>
@@ -33,6 +24,17 @@
         </div>
     </header>
     <div class="center">
+        
+        <% if(typeof alert != "undefined"){ %> 
+            <% alert.forEach(function(error){ %> 
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                   <%= error.msg %> 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+
+                  <% }) %>
+        <% } %>  
+        
         <% if(data == null) {%>
         <form action="/blog/add" enctype="multipart/form-data" method="post">
             
