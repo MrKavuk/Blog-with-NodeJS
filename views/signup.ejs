@@ -21,7 +21,7 @@
 
         <% if(typeof alert != "undefined"){ %> 
             <% alert.forEach(function(error){ %> 
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="width: 50%; margin: 0 auto;">
                    <%= error.msg %> 
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
@@ -32,7 +32,7 @@
 
         <% if(typeof error != "undefined"){ %> 
          
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" style="width: 50%; margin: 0 auto;">
                <%= error%> 
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
