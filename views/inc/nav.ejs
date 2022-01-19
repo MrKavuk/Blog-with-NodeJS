@@ -9,8 +9,10 @@
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/">Home</a></li>
                 <% if( user ) { %>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/myBlogs/<%=user._id%>">My Blog Posts</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/getPage">Add Blog</a></li>
+                     <% if(user.isValid == "true"){%> 
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/myBlogs/<%=user._id%>">My Blog Posts</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/getPage">Add Blog</a></li>
+                    <%}%>
                     <% if( user.position == "admin" ) { %>   
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/getComments">Approval Comments</a></li> 
                     <% } %>    

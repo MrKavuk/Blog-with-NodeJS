@@ -76,6 +76,7 @@ const checkUser = (req,res,next)=>{
 
             else{
                 res.locals.user = await authorModel.findById(decodedToken.data)
+                req.author = res.locals.user
                 next();
             }
 
@@ -133,8 +134,9 @@ const resetPasswordAuth = (req,res,next)=>{
             else{
                 
                 req.author_email = decodedToken.data
-                next();
                 console.log("buradayım error if else içinde")
+                next();
+            
               
             }
 

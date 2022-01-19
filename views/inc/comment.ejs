@@ -1,39 +1,40 @@
 
     <% if(user){%>
  
-        <h4 style="text-align: center;">Write Comment</h4>
+        
+        <% if(user.isValid == "true") { %> 
+            <!-- Main Content-->
+            <h4 style="text-align: center;">Write Comment</h4>
+            <main class="mb-4">
+                <div class="container px-4 px-lg-5" style="padding-left:0 !important ;padding-right:0 !important;">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7" style="width: 100%;">
 
-        <!-- Main Content-->
-        <main class="mb-4">
-            <div class="container px-4 px-lg-5" style="padding-left:0 !important ;padding-right:0 !important;">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7" style="width: 100%;">
-
-                        <div class="my-5">
-                            <form id="contactForm"  action="/blog/commentControl" method="post" >
-                                            
-                                <div class="form-floating">
-                                    <textarea class="form-control" id="message"  name="comment" placeholder="Enter your message here..." style="height: 12rem; background-color: #f2f2f2; padding-left: 1rem;padding-right: 1rem;" data-sb-validations="required" required></textarea>
-                                    <label for="message" style="padding-left: 1.4rem;">Message</label>
-                                    <input type="text" style="visibility:hidden; width: 0;" name="authorId" value=<%=user._id%>>
-                                    <input type="text" style="visibility:hidden; width: 0;" name="blogId" value=<%=blog._id%> >
-                                </div>
-                                <br />
-                                            
-                                            <!-- Submit Button-->
-                                <div class="center">
-                                    <div class="inputbox">
-                                        <input type="submit" id="btn" value="Send">
-                                    </div> 
-                                </div>
-                            </form>
-                        
+                            <div class="my-5">
+                                <form id="contactForm"  action="/blog/commentControl" method="post" >
+                                                
+                                    <div class="form-floating">
+                                        <textarea class="form-control" id="message"  name="comment" placeholder="Enter your message here..." style="height: 12rem; background-color: #f2f2f2; padding-left: 1rem;padding-right: 1rem;" data-sb-validations="required" required></textarea>
+                                        <label for="message" style="padding-left: 1.4rem;">Message</label>
+                                        <input type="text" style="visibility:hidden; width: 0;" name="authorId" value=<%=user._id%>>
+                                        <input type="text" style="visibility:hidden; width: 0;" name="blogId" value=<%=blog._id%> >
+                                    </div>
+                                    <br />
+                                                
+                                                <!-- Submit Button-->
+                                    <div class="center">
+                                        <div class="inputbox">
+                                            <input type="submit" id="btn" value="Send">
+                                        </div> 
+                                    </div>
+                                </form>
+                            
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
- 
+            </main>
+        <% } %>
     <% } %>
     <br/>
     <h4 style="text-align: center;">Comments</h4>

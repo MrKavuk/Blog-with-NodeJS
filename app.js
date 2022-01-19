@@ -6,9 +6,9 @@ const { body, validationResult } = require('express-validator');
 const cookieParser = require("cookie-parser")
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-var uuid = require('uuid');
 var path = require('path')
-const {checkUser} = require('./middlewares/tokenMiddleware')
+const {checkUser} = require('./middleware/token')
+var uuid = require('uuid');
 
 const multer = require('multer')
 const fileStorageEngine = multer.diskStorage({
@@ -21,6 +21,7 @@ const fileStorageEngine = multer.diskStorage({
   })
   
   const upload = multer({ storage : fileStorageEngine })
+
 
 
 

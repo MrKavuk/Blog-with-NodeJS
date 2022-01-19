@@ -21,7 +21,8 @@ const blogValidationRules = () => {
   const blogValidate = (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        
+        console.log("Title : ",req.body.title)
+        console.log("Long : ",req.body.long)
         const alert = errors.array();
         res.render("addBlog",{
             title: "Add Blog",
@@ -31,13 +32,25 @@ const blogValidationRules = () => {
     }
 
     else{
-        console.log(req.body)
-        return next()
+        if(req.author.isValid == "true"){
+            return next()
+        }
+        else{
+          res.redirect('/')
+        }
+    }
+  }
+  const commentValidate = (req,res,next)=>{
+    if(req.author.isValid == "true"){
+      return next()
+    }
+    else{
+      res.redirect('/')
     }
   }
 
-
   module.exports={
     blogValidationRules,
-    blogValidate
+    blogValidate,
+    commentValidate
   }

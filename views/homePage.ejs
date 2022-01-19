@@ -10,6 +10,16 @@
     <body>
         <%-include('./inc/nav')%>
         <%-include('./inc/header')%>
+        <% if(user != null){%>
+            <%console.log("user : ",user)%>
+            <% if(user.isValid == "false"){ %> 
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align:center">
+                        You cannot add a blog or comment because you do not confirm your e-mail address.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+               </div>
+            <%}%>
+        <% } %>
+        
         
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">

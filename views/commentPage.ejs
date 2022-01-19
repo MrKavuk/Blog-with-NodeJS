@@ -76,9 +76,14 @@
                                 <label for="comment">Comment</label>
                                 
                             </div>
-                            <div class="form-floating" style="pointer-events: none;">
-                                <input class="form-control" id="blogId" name="blogId" type="text" value="<%=comment.blogId%>" required />
+                            <div class="form-floating" style="pointer-events: none; width: 0; height: 0;">
+                                <input class="form-control" id="blogId" name="blogId" type="text" value="<%=comment.blogId._id%>" required />
                                 <label for="blogId">Blog Id</label>
+                                
+                            </div>
+                            <div class="form-floating" style="pointer-events: none;">
+                                <input class="form-control" id="blogTitle" name="blogTitle" type="text" value="<%=comment.blogId.title%>" required />
+                                <label for="blogTitle">Blog Title</label>
                                 
                             </div>
                             <div class="form-floating" style="pointer-events: none;">
@@ -112,8 +117,10 @@
                         Commented by <%=comment.author%>
                         
                     </p>
-                    <% }) %>     
-                
+                    <% }) %> 
+                    <% if(!ifComment) { %>  
+                        <div style="text-align: center;" ><p>Bekleyen Yorum Yok</p></div>
+                    <%}%>
             </div>
         </div>
     </div>

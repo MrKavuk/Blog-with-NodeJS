@@ -5,7 +5,7 @@
 
     <%-include('./inc/head')%>
     <link rel="stylesheet" href="/style/homePage.css">
-
+    
 </head>
 
 <body>
@@ -31,8 +31,8 @@
                         </p>
                     </div>
         
-                    <a href="/blog/getUpdateBlogPage/<%=blog._id%>" style="color: rgb(40, 219, 64);" >Update</a>
-                    <a href="/blog/deleteBlog/<%=blog._id%>" style="color: red;" >Delete</a>
+                    <a href="/blog/getUpdateBlogPage/<%=blog._id%>" style="color: rgb(40, 219, 64);cursor: pointer;" >Update</a>
+                    <a onclick="deleteBlog('<%=blog._id%>','<%=blog.title%>')" style="color: red; cursor: pointer;" >Delete</a>
                         
                     
                     <hr class="my-4"/>
@@ -45,9 +45,27 @@
 
       
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-      
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <script src="/script/scripts.js"></script>
+    <script>
+        deleteBlog = (blogId,title) =>{
+            
+            if (confirm(`Are you sure delete to ${title}`)) {
+                axios.delete(`/blog/deleteBlog/${blogId}`).then((response)=>{
 
+                    if(response.data.status){
+                        window.location.href = response.data.redirect
+                    }
+                    else{
+                        alert("Veri Silinemedi")
+                    }
+                })
+                
+            } 
+             
+        }
+           
+    </script>
 </body>
 
 </html>

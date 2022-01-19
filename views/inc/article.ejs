@@ -1,38 +1,34 @@
 <article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
 
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-
-            <div class="center container">
-        
-              
-                   
-                        
-                           <div class="post blog radius-20px">
-                         
-                               <div class="post-body">
-                                  
-                                   <p class="post-long" id="post-long" style="width: 100%;"><%-blog.long %></p>
-
-                           
-                                   <p class="author">Author : <%=blog.author.username %> 
-                                                     <%=blog.createdAt%>
-                                        </p>
-                                   
-                                 
-                               
-                               </div>                   
-                               <%-include('./comment') %> 
-                            
-                            </div>
-                        
+                <div class="center container">
+            
                     
-              
-                
-                        
-             </div>
-        
+                    <div class="post blog radius-20px">
+                            
+                        <div class="post-body">
+                                    
+                            <p class="post-long" id="post-long" style="width: 100%;"><%-blog.long %></p>
+
+                            
+                            <p class="author">Author : <%=blog.author.username %> 
+                                                        <%=blog.createdAt%>
+                                            </p>
+                                    
+                                    
+                                
+                        </div>                   
+                        <%-include('./comment') %> 
+                                
+                    </div>
+                   
+                </div>
+            
+            </div>
         </div>
     </div>
-    
+        
+        
 </article>

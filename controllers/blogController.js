@@ -47,6 +47,7 @@ const controller = {
           });
           
         if(!req.file){
+            
             return  res.redirect("/blog/getPage")
         }
         const blog = new blogModel({
@@ -72,12 +73,12 @@ const controller = {
         })
     },
     getComment : (req,res)=>{
-        controlCommentModel.find((err,comments)=>{
-            if(!err){
-                res.render('commentPage',{comments : comments, title : "Comments"})
+        controlCommentModel.find().populate('blogId').then((comments)=>{
+            if(comments.length>0){
+                res.render('commentPage',{comments : comments, title : "Comments",ifComment : true})
             }
             else{
-                res.status(400).render('404',{title : "Error"})
+                res.render('commentPage',{comments : comments, title : "Comments",ifComment : false})
             }
             
         })
@@ -133,10 +134,11 @@ const controller = {
             if(data){
                 console.log("Data Silindi")
                 console.log(data)
-                res.redirect('/')
+                
+                res.json({status : true,redirect : "/"})
             }
             else{
-                res.json({msg : "Veri Silinemedi"})
+                res.json({status : false})
             }
             
         })
