@@ -5,7 +5,7 @@ const {controller} = require('../controllers/blogController')
 
 const {requiredAdmin,requiredDelete,requiredAuth} = require("../middlewares/tokenMiddleware")
 
-const {blogValidationRules,blogValidate} = require("../middlewares/blogValidationMiddleware")
+const {userValidationRules,validate} = require("../middlewares/validationMiddleware")
 
 
 
@@ -16,7 +16,7 @@ routerBlog.get("/myBlogs/:id",controller.getMyblogs)
 routerBlog.get('/deleteBlog/:id',requiredDelete,controller.deleteBlog)
 routerBlog.get('/getComments',requiredAdmin,controller.getComment)
 
-routerBlog.post('/add',blogValidationRules(),blogValidate,requiredAuth,controller.postBlog)
+routerBlog.post('/add',userValidationRules(),validate,requiredAuth,controller.postBlog)
 routerBlog.post('/update/:id',requiredAuth,controller.updateBlog)
 routerBlog.post('/delete',requiredDelete,controller.deleteBlog)
 routerBlog.post('/commentControl',requiredAuth,controller.addControlComment)

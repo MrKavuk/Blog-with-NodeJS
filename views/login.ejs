@@ -14,37 +14,15 @@
     <div id="log-in-container">
         
         <h3 id="heading" style="text-align: center;">Log In</h3>
-
-        <% if(typeof alert != "undefined"){ %> 
-            <% alert.forEach(function(error){ %> 
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                   <%= error.msg %> 
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-
-                  <% }) %>
-        <% } %>  
-
-
-        <% if(typeof error != "undefined"){ %> 
-         
-                <div class="alert alert-warning alert-dismissible fade show" style="width: 50%; margin: 0 auto;" role="alert">
-                   <%= error%> 
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-
-                 
-        <% } %>  
-
         <form  action="/author/login" id="contactForm" method="post" style="width: 50%; margin: 0 auto;" >
             <div id="message" class="form-floating warning"></div>
             <div class="form-floating">
-                <input class="form-control" id="email" name="email" type="email" placeholder="Enter your email"  />
+                <input class="form-control" id="email" name="email" type="email" placeholder="Enter your email" required />
                 <label for="email">Eposta</label>
                 
             </div>
             <div class="form-floating">
-                <input class="form-control" id="password" name="password" type="password" placeholder="Enter your password..."  />
+                <input class="form-control" id="password" name="password" type="password" placeholder="Enter your password..." required />
                 <label for="password">Password</label>
                 
             </div>

@@ -11,7 +11,7 @@ const { response } = require('express');
 
 const maxAge = 60*60*24   // max süresini dışarıdan belirlendi.
 
-const maxTime =900
+const maxTime =60
 
 
 const createToken = (id) =>{
@@ -71,7 +71,7 @@ const controller ={
                            
                         }
                         else {
-                            console.log({
+                            res.status(400).json({
                                 msg: err
                             })
                         }
@@ -113,8 +113,7 @@ const controller ={
               
             }
             else {
-                res.render("login",{title:"Log In", error:"The e-mail is already registered."})
-                // res.status(400).json({ msg: "Eposta zaten kayıtlı" })
+                res.status(400).json({ msg: "Eposta zaten kayıtlı" })
             }
         })
 
@@ -145,12 +144,12 @@ const controller ={
                    
                 }
                 else{
-                  
-                    res.render('login', { title: "Login" , error: "mail or password is incorrect!"})
+                    
+                    res.status(400).json({msg : "Şifre Hatalı"})
                 }
             }
             else{
-                res.render('login', { title: "Login" , error: "mail or password is incorrect!"})
+                res.status(400).json({msg : "Eposta Hatalı"})
             }
 
         })
@@ -212,7 +211,7 @@ const controller ={
     
     
         else{
-            res.render("reset", {title: "Reset Password", error: "No such user found!"})
+            res.status(500).json({msg:"Girilen Eposta Bulunamadı"})
         }
             
                 
@@ -238,8 +237,8 @@ const controller ={
            
             else{
                 res.cookie("resetToken", "", {maxTime: 1})
-                res.redirect("/author/resetPassword")
-                // res.json({msg : "yetki bulunamadi"})
+                //res.redirect("/author/resetPassword")
+                res.json({msg : "yetki bulunamadi"})
             }
         })
         
@@ -253,8 +252,7 @@ const controller ={
     changePassword : async (req,res)=>{
         var encryptPassword = CryptoJS.AES.encrypt(req.body.password, userLoginKey).toString();
         await authorModel.updateOne({email : req.body.email},{password : encryptPassword,reset : null})
-        res.cookie("jwtLink", "", {maxTime: 1})
-        res.redirect('/author/login')
+        res.redirect('/')
     },
 
 
@@ -275,15 +273,13 @@ const controller ={
 
 
                 else{
-                    res.render("login",{title: "login", error:"This subscription has been confirmed."})
-                    // res.json({msg: "Bu üyelik onaylanmıştır."})
+                    res.json({msg: "Bu üyelik onaylanmıştır."})
                 }
               
             }
             
             else{
-                res.render("signup",{title: "Sign Up", error:"No such user was found."})
-                // console.log("Böyle bir kullanıcı bulunamadı.")
+                console.log("Böyle bir kullanıcı bulunamadı.")
             }
             
             

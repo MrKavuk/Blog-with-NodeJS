@@ -15,17 +15,6 @@
     <div id="log-in-container">
         
         <h3 id="heading" style="text-align: center;">Reset Password</h3>
-
-        <% if(typeof error != "undefined"){ %> 
-         
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-               <%= error%> 
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-
-             
-        <% } %>  
-
         <form  action="/author/resetPassword" id="contactForm" method="post" style="width: 50%; margin: 0 auto;" >
             <div id="message" class="form-floating warning"></div>
             <div class="form-floating">

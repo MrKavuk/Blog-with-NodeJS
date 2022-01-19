@@ -133,9 +133,8 @@ const resetPasswordAuth = (req,res,next)=>{
             else{
                 
                 req.author_email = decodedToken.data
-                console.log("buradayım error if else içinde")
                 next();
-            
+                console.log("buradayım error if else içinde")
               
             }
 
