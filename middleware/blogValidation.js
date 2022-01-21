@@ -1,6 +1,6 @@
 const { body, check,validationResult } = require('express-validator')
 var bodyParser = require('body-parser')
-
+const fs = require('fs')
 // parse application/x-www-form-urlencoded
 bodyParser.urlencoded({ extended: false })
 
@@ -21,8 +21,10 @@ const blogValidationRules = () => {
   const blogValidate = (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        console.log("Title : ",req.body.title)
-        console.log("Long : ",req.body.long)
+        fs.unlink(req.file.path,function(err){
+          if(err) return console.log(err);
+          console.log('file deleted successfully');
+      }); 
         const alert = errors.array();
         res.render("addBlog",{
             title: "Add Blog",

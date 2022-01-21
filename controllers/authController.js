@@ -43,16 +43,18 @@ const controller ={
        // console.log(req.body)
        const isValid = false
        email= req.body.email
+       username = req.body.username.toLowerCase()
        var uniqueString = uuid.v1()
-        authorModel.findOne({ email: req.body.email}, (err, doc) => {
+        authorModel.findOne({$or:[{ email: req.body.email},{ username: username}]}, (err, doc) => {
+            
             if (!doc) {
                 var encryptPassword = CryptoJS.AES.encrypt(req.body.password, userLoginKey).toString();
-
+                
                 author = new authorModel({
                     name: req.body.name,
                     surname: req.body.surname,
                     email: req.body.email,
-                    username: req.body.username,
+                    username: req.body.username.toLowerCase(),
                     password: encryptPassword,
                     position: "author",
                     isValid: isValid,
@@ -64,10 +66,39 @@ const controller ={
                  
                     author.save((err, doc) => {
                         if (!err && doc != null) {
-                            console.log(doc);
-                         
-                            res.redirect('/author/login')
+                            function sendMail (email, uniqueString){
+                      
+                                var transport1= nodemailer.createTransport({
+                                    service: "gmail",
+        
+                                    auth: {
+                                        user: 'test.destek.999@gmail.com',
+                                        pass: '.blog2696_'
+                                    }
+                                })
+        
+                                var mailOptions1 = {
+                                    from: "eposta",
+                                    to: email,
+                                    subject: "Email confirmation",
+                                    html: `Press <a href=http://localhost:8080/author/verify/${uniqueString}> here </a> to verify your email. Thanks`
+                                }
+        
+                                transport1.sendMail(mailOptions1, function(error,response){
+                                    if(error){
+                                        console.log(error);
+                                    }
+                                    else{
+                                        console.log("Message Sent")
+                                    }
+                                })
+                            }
+        
+                            sendMail(email, uniqueString )
+                            
                             console.log("Kayit basarili")
+                            res.redirect('/author/login')
+                            
                            
                         }
                         else {
@@ -76,45 +107,19 @@ const controller ={
                             })
                         }
                     })
+               
 
-                   
-
-                 
-                    function sendMail (email, uniqueString){
-                      
-                        var transport1= nodemailer.createTransport({
-                            service: "gmail",
-
-                            auth: {
-                                user: 'test.destek.999@gmail.com',
-                                pass: '.blog2696_'
-                            }
-                        })
-
-                        var mailOptions1 = {
-                            from: "eposta",
-                            to: email,
-                            subject: "Email confirmation",
-                            html: `Press <a href=http://localhost:8080/author/verify/${uniqueString}> here </a> to verify your email. Thanks`
-                        }
-
-                        transport1.sendMail(mailOptions1, function(error,response){
-                            if(error){
-                                console.log(error);
-                            }
-                            else{
-                                console.log("Message Sent")
-                            }
-                        })
-                    }
-
-                    sendMail(email, uniqueString )
-                
-              
+             
             }
             else {
-                res.render("login",{title:"Log In", error:"The e-mail is already registered."})
-                // res.status(400).json({ msg: "Eposta zaten kayıtlı" })
+                if(doc.username === username){
+                    res.render("signup",{title:"Sign Up", error:"The username is already registered."})
+                }
+                else{
+                    res.render("login",{title:"Log In", error:"The e-mail is already registered."})
+                }
+                
+                
             }
         })
 

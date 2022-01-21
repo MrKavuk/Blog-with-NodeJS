@@ -27,7 +27,8 @@ const blogSchema = new Schema({
     author:{type : Schema.Types.ObjectId , ref :'Author'},
     comments:[{type : Schema.Types.ObjectId , ref :'Comment'}],
     commentSize :{type:Number, default:0 },
-    imgName:{type:String}
+    imgName:{type:String},
+    imgPath:{type:String}
 
 })
 

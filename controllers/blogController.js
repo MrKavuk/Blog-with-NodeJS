@@ -6,6 +6,7 @@ const uuid = require('uuid')
 const path = require('path')
 const moment = require('moment'); //moment modulu eklendi
 const { convert } = require('html-to-text');
+const fs = require('fs')
 const controller = {
     getBlogPage : (req,res)=>{
             
@@ -55,6 +56,7 @@ const controller = {
             long :  long,
             short : text.substring(0,(req.body.long.length/4))+"...",
             imgName : req.file.filename,
+            imgPath : req.file.path,
             category: req.body.category,
             author : [req.author_id],
             createdAt: moment().locale("tr").format("LLL")
@@ -130,11 +132,14 @@ const controller = {
     }
     ,
     deleteBlog : (req,res) =>{
-        blogModel.deleteOne({_id : req.params.id}).then((data)=>{
+        blogModel.findOneAndRemove({_id : req.params.id}).then((data)=>{
             if(data){
+                console.log(" Silinen data : ",data)
+                fs.unlink(data.imgPath,function(err){
+                    if(err) return console.log(err);
+                    console.log('file deleted successfully');
+                }); 
                 console.log("Data Silindi")
-                console.log(data)
-                
                 res.json({status : true,redirect : "/"})
             }
             else{
