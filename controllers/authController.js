@@ -273,7 +273,9 @@ const controller ={
 
                 if(user.isValid != "true"){
                     user.isValid = true;
-                    user.save();
+                    user.save().catch((err)=>{
+                        console.log('isValid hatası : ',err)
+                    });
                     res.redirect('/')
                 }
 

@@ -2,21 +2,29 @@ const {blogModel} =  require('../models/blogs')
 const {commentModel} = require('../models/comment')
 const {controlCommentModel} = require('../models/controlComment')
 const{authorModel} = require('../models/author')
+const{blogCategoryModel} = require('../models/blogCategory')
+const {blogImageModel} = require('../models/blogImages')
 const uuid = require('uuid')
 const path = require('path')
 const moment = require('moment'); //moment modulu eklendi
 const { convert } = require('html-to-text');
 const fs = require('fs')
 const controller = {
-    getBlogPage : (req,res)=>{
-            
-            res.render('addBlog',{title : "Add Blog",data : null})
+    getBlogPage : async(req,res)=>{
+            categories = await blogCategoryModel.find().catch(err=>{
+                console.log(err)
+            })
+            console.log("categories : ",categories)
+            res.render('addBlog',{title : "Add Blog",categories:categories,titleSub:"Add Blog",data : null})
         
     },
-    getUpdateBlogPage : (req,res)=>{
+    getUpdateBlogPage : async(req,res)=>{
+        categories = await blogCategoryModel.find().catch(err=>{
+            console.log(err)
+        })
         blogModel.findById(req.params.id).then((blog)=>{
             console.log("data : ",blog)
-            res.render('addBlog',{title : "Update Blog",data : blog })
+            res.render('addBlog',{title : "Update Blog",titleSub:"Update Blog",categories:categories,data : blog })
         }).catch((err)=>{
             console.log(err);
             res.render('404')
@@ -25,7 +33,7 @@ const controller = {
     
     },
     getBlog :(req,res)=>{
-        blogModel.findById(req.params.id).populate('author comments').then((data)=>{
+        blogModel.findById(req.params.id).populate('author comments category imgId').then((data)=>{
             
             res.status(200).render('blogPostPage', {title: data.title, blog:data})
         }).catch((err)=>{
@@ -41,7 +49,7 @@ const controller = {
             res.render('404')
         })
     },
-    postBlog : (req,res)=>{
+    postBlog : async (req,res)=>{
         long= req.body.long
         const text = convert(long, {
             wordwrap: 130
@@ -51,15 +59,22 @@ const controller = {
             
             return  res.redirect("/blog/getPage")
         }
+        var category = await blogCategoryModel.findOne({name : req.body.category})
+        var image = await new blogImageModel({
+            imgName : req.file.filename,
+            imgPath : req.file.path,
+        })
+        await image.save().catch((err)=>{
+            res.send('img eklenemedi' + err)
+        })
         const blog = new blogModel({
             title : req.body.title,
             long :  long,
             short : text.substring(0,(req.body.long.length/4))+"...",
-            imgName : req.file.filename,
-            imgPath : req.file.path,
-            category: req.body.category,
+            imgId : image._id,
+            category: category._id,
             author : [req.author_id],
-            createdAt: moment().locale("tr").format("LLL")
+            createdAt: moment().locale("en").format("lll")
         })
         blog.save().then((result)=>{
             res.redirect('/')
@@ -67,10 +82,14 @@ const controller = {
         .catch((err)=>{
             res.status(400).send("Blog Keydedilemedi")
         })
+
     },
-    updateBlog :(req,res) =>{
+    updateBlog :async(req,res) =>{
+        var category = await blogCategoryModel.findOne({name : req.body.category}).catch((err)=>{
+            console.log('updateBlog : ',err)
+        })
         var short = req.body.long.substring(0,(req.body.long.length/4)) + " ..."
-        blogModel.updateOne({_id :req.params.id},{long : req.body.long, title : req.body.title, short: short, category:req.body.category }).then((data)=>{
+        blogModel.updateOne({_id :req.params.id},{long : req.body.long, title : req.body.title, short: short, category:category._id }).then((data)=>{
             res.redirect('/')
         })
     },
@@ -132,14 +151,17 @@ const controller = {
     }
     ,
     deleteBlog : (req,res) =>{
-        blogModel.findOneAndRemove({_id : req.params.id}).then((data)=>{
+        blogModel.findOneAndRemove({_id : req.params.id}).populate('imgId').then((data)=>{
             if(data){
                 console.log(" Silinen data : ",data)
-                fs.unlink(data.imgPath,function(err){
+                fs.unlink(data.imgId.imgPath,function(err){
                     if(err) return console.log(err);
                     console.log('file deleted successfully');
                 }); 
                 console.log("Data Silindi")
+                blogImageModel.deleteOne({_id :data.imgId._id}).catch((err)=>{
+                    console.log("blogImageModel delete error : ",err)
+                })
                 res.json({status : true,redirect : "/"})
             }
             else{

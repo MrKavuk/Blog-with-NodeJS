@@ -29,6 +29,7 @@ const blogValidationRules = () => {
         res.render("addBlog",{
             title: "Add Blog",
             data : null,
+            titleSub:"Add Blog",
             alert
         })
     }

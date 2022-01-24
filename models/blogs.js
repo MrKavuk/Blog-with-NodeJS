@@ -20,15 +20,12 @@ const blogSchema = new Schema({
         type:String,
     },
 
-    category: { 
-        type:String
-    }
-    ,
+    category:{type : Schema.Types.ObjectId , ref :'BlogCategory'},
     author:{type : Schema.Types.ObjectId , ref :'Author'},
     comments:[{type : Schema.Types.ObjectId , ref :'Comment'}],
     commentSize :{type:Number, default:0 },
-    imgName:{type:String},
-    imgPath:{type:String}
+    imgId:{type : Schema.Types.ObjectId , ref :'BlogImage'},
+    
 
 })
 
