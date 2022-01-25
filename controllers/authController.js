@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");  //json web token modulu dahil edildi.
 const uuid = require("uuid")
 const nodemailer = require("nodemailer");  //mail modulu dahil edildi.
 const { response } = require('express');
-
+const {testEmail,emailPassword} = require('../env/config')
 
 
 const maxAge = 60*60*24   // max süresini dışarıdan belirlendi.
@@ -72,8 +72,8 @@ const controller ={
                                     service: "gmail",
         
                                     auth: {
-                                        user: 'test.destek.999@gmail.com',
-                                        pass: '.blog2696_'
+                                        user: testEmail,
+                                        pass: emailPassword
                                     }
                                 })
         
@@ -175,8 +175,8 @@ const controller ={
 
             service: 'gmail',
             auth: {
-                user: 'test.destek.999@gmail.com',
-                pass: '.blog2696_'
+                user: testEmail,
+                pass: emailPassword
             }
         })
 
