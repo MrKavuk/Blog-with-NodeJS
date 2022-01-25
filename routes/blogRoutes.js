@@ -14,14 +14,10 @@ routerBlog.get("/getUpdateBlogPage/:id",requiredAuth,controller.getUpdateBlogPag
 routerBlog.get("/get/:id",controller.getBlog)
 routerBlog.get("/myBlogs/:id",controller.getMyblogs)
 routerBlog.get('/getComments',requiredAdmin,controller.getComment)
-routerBlog.get("/getCategoryPage", requiredAuth, controller.getCategory)
 
-routerBlog.delete('/deleteCategory/:id',requiredAdmin,controller.deleteCategory)
+
 routerBlog.delete('/deleteBlog/:id',requiredDelete,controller.deleteBlog)
 
-routerBlog.put('/updateCategory',requiredAdmin,controller.updateCategory)
-
-routerBlog.post('/categoryAdd', requiredAdmin, controller.postCategory)
 routerBlog.post('/add',blogValidationRules(),blogValidate,requiredAuth,controller.postBlog)
 routerBlog.post('/update/:id',requiredAuth,controller.updateBlog)
 //routerBlog.post('/delete',requiredDelete,controller.deleteBlog)

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const blogCategorySchema = new Schema({
 
-    name : { type : String, require : true,unique:true}
+    name : { type : String, require : true}
 
 })
 
