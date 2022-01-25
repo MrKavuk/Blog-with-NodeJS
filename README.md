@@ -2,6 +2,7 @@
 
 Blog site creation with nodejs express 
 
+Anıl Kavuk ve Mehmet Ardıç tarafından yapılmıştır.
 
 
 ![1](https://user-images.githubusercontent.com/36512716/151037557-44e3b183-fdfe-4375-94f0-91dd9a47e1a6.jpg)
