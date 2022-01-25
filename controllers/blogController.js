@@ -60,6 +60,8 @@ const controller = {
             return  res.redirect("/blog/getPage")
         }
         var category = await blogCategoryModel.findOne({name : req.body.category})
+        
+        console.log('body:',req.body)
         var image = await new blogImageModel({
             imgName : req.file.filename,
             imgPath : req.file.path,
@@ -84,6 +86,111 @@ const controller = {
         })
 
     },
+    
+    deleteCategory: (req,res) =>{
+        console.log("id : ",req.params.id)
+        blogCategoryModel.deleteOne({_id:req.params.id}, (err,delResult) =>{
+            if(delResult){
+                console.log("Silinen Veri: ", delResult);
+                res.json({status: true, message:"The data was deleted successfully."});
+            }
+
+            else{
+                console.log("Error: ", err);
+                res.json({status: false, message: "Failed to delete data successfully."});
+            }
+        });
+
+    },
+    postCategory : (req,res) =>{
+        categoryLength = req.body.blogCategory.length;
+        categoryReq = req.body.blogCategory[0].toUpperCase() + req.body.blogCategory.slice(1,categoryLength).toLowerCase()
+        blogCategoryModel.findOne({name : categoryReq }, (err, result)=>{
+
+            if(!result){
+
+                var categoryAdd = new blogCategoryModel({
+                    name : categoryReq
+                })
+                
+                categoryAdd.save((err,result)=>{
+                    blogCategoryModel.find().then((categories)=>{
+                        if(err){
+                            console.log("Kaydedilmedi, Error: ", err);
+                            res.render("category", {title: "Category Add",categories: categories, titleSub: "Category Add", error: "A problem occurred while saving. Please try again."});
+                        }
+    
+                        else{
+                            
+                            console.log("Kaydedildi, data", result);
+                            res.render("category", {title: "Category Add",categories: categories ,titleSub: "Category Add", error: "Registration was successful."});
+                            
+                        }
+                    })
+                    
+                })
+            }
+            else{
+                blogCategoryModel.find().then((categories)=>{
+                    if(err){
+                        console.log("Kaydedilmedi, Error: ", err);
+                        res.render("category", {title: "Category Add",categories: categories, titleSub: "Category Add", error: "A problem occurred while saving. Please try again."});
+                    }
+
+                    else{
+                        
+                        console.log("Kaydedildi, data", result);
+                        res.render("category", {title: "Category Add",categories: categories ,titleSub: "Category Add", error: "It has not been added because such a category exists."});
+                        
+                    }
+                })
+                
+            }
+        })
+    },
+    
+    getCategory: (req,res) =>{
+        blogCategoryModel.find((err,result)=>{
+
+            if(result){
+                
+                res.render("category", {title: "Category Add", titleSub: "Category Add", categories : result});
+            }
+
+            else{
+                console.log("Error: ", err);
+                res.render("category", {title: "Category Add", titleSub: "Category Add", error: "You have no categories."});
+            }
+
+        })
+    },
+    updateCategory: (req,res)=>{
+        categoryLength = req.body.categoryName.length;
+        categoryReq = req.body.categoryName[0].toUpperCase() + req.body.categoryName.slice(1,categoryLength).toLowerCase()
+        blogCategoryModel.find({name:categoryReq}).then((category)=>{
+            console.log('category : ',category)
+            if(category.length == 0){
+                blogCategoryModel.updateOne({_id: req.body.categoryId},{name: req.body.categoryName},(err,updateResult)=>{
+                    if(updateResult){
+                        console.log("req body name: ", req.body.categoryName);
+                        res.json({status: true, message:"The data was update successfully."});
+                    }
+        
+                    else{
+                        console.log("Error: ", err);
+                        res.json({status: false, message: "Zaten Aynı veri var"});
+                    }
+                })
+            }
+            else{
+                res.json({status: false, message: "Failed to update data successfully."});
+            }
+        })
+        
+       
+
+    }
+    ,
     updateBlog :async(req,res) =>{
         var category = await blogCategoryModel.findOne({name : req.body.category}).catch((err)=>{
             console.log('updateBlog : ',err)
