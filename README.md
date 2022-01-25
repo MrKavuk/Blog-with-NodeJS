@@ -3,8 +3,12 @@
 Blog site creation with nodejs express 
 
 
-![1](https://user-images.githubusercontent.com/36512716/147668559-0fb45e3c-57be-4e33-aba0-ce41a07cb6d9.PNG)
 
+![1](https://user-images.githubusercontent.com/36512716/151037557-44e3b183-fdfe-4375-94f0-91dd9a47e1a6.jpg)
 
+![4](https://user-images.githubusercontent.com/36512716/151037573-5eba1650-7ac9-4035-a52d-ab6f7f90b522.jpg)
 
-![2](https://user-images.githubusercontent.com/36512716/147668494-6eb8f631-0c80-44e3-916f-b65996fb2c86.png)
+![2](https://user-images.githubusercontent.com/36512716/151037596-dafb79fe-2bce-41d1-81e3-02fa80ef664e.jpg)
+
+![3](https://user-images.githubusercontent.com/36512716/151037605-ef6ddf67-ef5d-4540-ae42-0648e845e260.jpg)
+
